@@ -41,7 +41,7 @@ public class LoadingManager : MonoBehaviour
         runner.LoadScene(scenePath);
     }
 
-    public void LoadRandomLevel(NetworkRunner runner)
+    public void LoadRandomStage(NetworkRunner runner)
     {
         int sceneIndex = Random.Range(1, SceneManager.sceneCountInBuildSettings);
         if (_lastLevelIndex == sceneIndex)

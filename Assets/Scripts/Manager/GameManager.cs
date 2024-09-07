@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Fusion;
-//using FusionUtilsEvents;
+using FusionUtilsEvents;
 using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    //public FusionEvent OnPlayerLeftEvent;
-    //public FusionEvent OnRunnerShutDownEvent;
+    public FusionEvent OnPlayerLeftEvent;
+    public FusionEvent OnRunnerShutDownEvent;
 
-    //private Dictionary<PlayerRef, PlayerData> _playerData = new Dictionary<PlayerRef, PlayerData>();
+    private Dictionary<PlayerRef, PlayerData> _playerData = new Dictionary<PlayerRef, PlayerData>();
 
 
     public enum GameState
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     [Space]
 
-    //public LevelManager LoadLevelManager;
+    public LevelManager LoadLevelManager;
 
     [SerializeField] private GameObject _exitCanvas;
 
@@ -44,17 +44,17 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(transform.parent);
     }
 
-    //private void OnEnable()
-    //{
-    //    OnPlayerLeftEvent.RegisterResponse(PlayerDisconnected);
-    //    OnRunnerShutDownEvent.RegisterResponse(DisconnectedFromSession);
-    //}
+    private void OnEnable()
+    {
+        OnPlayerLeftEvent.RegisterResponse(PlayerDisconnected);
+        OnRunnerShutDownEvent.RegisterResponse(DisconnectedFromSession);
+    }
 
-    //private void OnDisable()
-    //{
-    //    OnPlayerLeftEvent.RegisterResponse(PlayerDisconnected);
-    //    OnRunnerShutDownEvent.RemoveResponse(DisconnectedFromSession);
-    //}
+    private void OnDisable()
+    {
+        OnPlayerLeftEvent.RegisterResponse(PlayerDisconnected);
+        OnRunnerShutDownEvent.RemoveResponse(DisconnectedFromSession);
+    }
 
     public void SetGameState(GameState state)
     {
@@ -69,20 +69,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //public PlayerData GetPlayerData(PlayerRef player, NetworkRunner runner)
-    //{
-    //    NetworkObject NO;
-    //    if (runner.TryGetPlayerObject(player, out NO))
-    //    {
-    //        PlayerData data = NO.GetComponent<PlayerData>();
-    //        return data;
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning("Player not found");
-    //        return null;
-    //    }
-    //}
+    public PlayerData GetPlayerData(PlayerRef player, NetworkRunner runner)
+    {
+        NetworkObject NO;
+        if (runner.TryGetPlayerObject(player, out NO))
+        {
+            PlayerData data = NO.GetComponent<PlayerData>();
+            return data;
+        }
+        else
+        {
+            Debug.LogWarning("Player not found");
+            return null;
+        }
+    }
 
     //public void AllowAllPlayersInputs()
     //{
@@ -101,12 +101,12 @@ public class GameManager : MonoBehaviour
     //    playerBehaviour.SetInputsAllowed(false);
     //}
 
-    //public void PlayerDisconnected(PlayerRef player, NetworkRunner runner)
-    //{
-    //    runner.Despawn(_playerData[player].Instance);
-    //    runner.Despawn(_playerData[player].Object);
-    //    _playerData.Remove(player);
-    //}
+    public void PlayerDisconnected(PlayerRef player, NetworkRunner runner)
+    {
+        runner.Despawn(_playerData[player].Instance);
+        runner.Despawn(_playerData[player].Object);
+        _playerData.Remove(player);
+    }
 
     ////Called by button
     //public void LeaveRoom()
@@ -119,26 +119,26 @@ public class GameManager : MonoBehaviour
     //    await ShutdownRunner();
     //}
 
-    //private async Task ShutdownRunner()
-    //{
-    //    await FusionHelper.LocalRunner?.Shutdown();
-    //    SetGameState(GameState.Lobby);
-    //    _playerData.Clear();
-    //}
+    private async Task ShutdownRunner()
+    {
+        await FusionHelper.LocalRunner?.Shutdown();
+        SetGameState(GameState.Lobby);
+        _playerData.Clear();
+    }
 
-    //public void DisconnectedFromSession(PlayerRef player, NetworkRunner runner)
-    //{
-    //    Debug.Log("Disconnected from the session");
-    //    ExitSession();
-    //}
+    public void DisconnectedFromSession(PlayerRef player, NetworkRunner runner)
+    {
+        Debug.Log("Disconnected from the session");
+        ExitSession();
+    }
 
-    //public void ExitSession()
-    //{
-    //    _ = ShutdownRunner();
-    //    LoadLevelManager.ResetLoadedScene();
-    //    SceneManager.LoadScene(0);
-    //    _exitCanvas.SetActive(false);
-    //}
+    public void ExitSession()
+    {
+        _ = ShutdownRunner();
+        LoadLevelManager.ResetLoadedScene();
+        SceneManager.LoadScene(0);
+        _exitCanvas.SetActive(false);
+    }
 
     //public void ExitGame()
     //{
@@ -146,8 +146,8 @@ public class GameManager : MonoBehaviour
     //    Application.Quit();
     //}
 
-    //public void SetPlayerDataObject(PlayerRef objectInputAuthority, PlayerData playerData)
-    //{
-    //    _playerData.Add(objectInputAuthority, playerData);
-    //}
+    public void SetPlayerDataObject(PlayerRef objectInputAuthority, PlayerData playerData)
+    {
+        _playerData.Add(objectInputAuthority, playerData);
+    }
 }
