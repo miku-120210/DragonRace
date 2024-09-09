@@ -58,7 +58,15 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Manager\GameLauncher.cs" />
+    <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Utils\FusionHelper.cs" />
     <Compile Include="Assets\Scripts\Lobby\LobbyCanvas.cs" />
+    <Compile Include="Assets\Scripts\Events\FusionEvent.cs" />
+    <Compile Include="Assets\Scripts\Manager\LoadingManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\FusionLauncher.cs" />
+    <Compile Include="Assets\Scripts\Manager\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -953,6 +961,10 @@
     </Reference>
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.33f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ParrelSync">
+      <HintPath>Library\ScriptAssemblies\ParrelSync.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow.Editor">

@@ -312,6 +312,7 @@
 -r:"C:/Users/miku1/Dragon/Library/PackageCache/com.unity.visualscripting@1.9.1/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"Library/Bee/artifacts/2000b0aE.dag/Fusion.Unity.Editor.ref.dll"
 -r:"Library/Bee/artifacts/2000b0aE.dag/Fusion.Unity.ref.dll"
+-r:"Library/Bee/artifacts/2000b0aE.dag/ParrelSync.ref.dll"
 -r:"Library/Bee/artifacts/2000b0aE.dag/Unity.EditorCoroutines.Editor.ref.dll"
 -r:"Library/Bee/artifacts/2000b0aE.dag/Unity.Performance.Profile-Analyzer.Editor.ref.dll"
 -r:"Library/Bee/artifacts/2000b0aE.dag/Unity.PlasticSCM.Editor.ref.dll"
@@ -335,7 +336,15 @@
 -r:"Library/Bee/artifacts/2000b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/2000b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/2000b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/Scripts/Events/FusionEvent.cs"
 "Assets/Scripts/Lobby/LobbyCanvas.cs"
+"Assets/Scripts/Manager/FusionLauncher.cs"
+"Assets/Scripts/Manager/GameLauncher.cs"
+"Assets/Scripts/Manager/GameManager.cs"
+"Assets/Scripts/Manager/LevelManager.cs"
+"Assets/Scripts/Manager/LoadingManager.cs"
+"Assets/Scripts/Player/PlayerData.cs"
+"Assets/Scripts/Utils/FusionHelper.cs"
 -langversion:9.0
 /unsafe+
 /deterministic

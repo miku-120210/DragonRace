@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638589616183392805
-    m_Hash: 2481798263
+      ticks: 638599158415197446
+    m_Hash: 2875324385
   m_LockFileStatus:
     m_FilePath: C:/Users/miku1/Dragon/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638589616183422794
-    m_Hash: 4213534480
+      ticks: 638599158415237470
+    m_Hash: 1941457829
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -1206,6 +1206,58 @@ m_ResolvedPackages:
     path: 
   unityLifecycle:
     version: 1.9.1
+    nextVersion: 
+- packageId: com.veriorpies.parrelsync@https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync
+  testable: 0
+  isDirectDependency: 1
+  version: 1.5.2
+  source: 5
+  resolvedPath: C:\Users\miku1\Dragon\Library\PackageCache\com.veriorpies.parrelsync@d1ef610e9f
+  assetPath: Packages/com.veriorpies.parrelsync
+  name: com.veriorpies.parrelsync
+  displayName: ParrelSync
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: 
+  description: ParrelSync is a Unity editor extension that allows users to test multiplayer
+    gameplay without building the project by having another Unity editor window opened
+    and mirror the changes from the original project.
+  status: 0
+  errors: []
+  versions:
+    all: []
+    compatible: []
+    verified: 
+  dependencies: []
+  resolvedDependencies: []
+  keywords:
+  - Networking
+  - Utils
+  - Editor
+  - Extensions
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: 
+  hasRepository: 0
+  repository:
+    type: 
+    url: 
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 
     nextVersion: 
 - packageId: com.unity.modules.ai@1.0.0
   testable: 0
