@@ -67,6 +67,10 @@
     <Compile Include="Assets\Scripts\Manager\FusionLauncher.cs" />
     <Compile Include="Assets\Scripts\Manager\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerSpawnManager.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerBehavior.cs" />
+    <Compile Include="Assets\Scripts\Player\InputController.cs" />
+    <Compile Include="Assets\Photon\FusionAddons\Physics\NetworkRigidbody2D.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -1057,6 +1061,10 @@
     </Reference>
     <Reference Include="Unity.EditorCoroutines.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
