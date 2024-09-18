@@ -96,7 +96,7 @@ public class PlayerBehavior : NetworkBehaviour
     //    PlayDeathSound();
     //}
 
-    private void SetGFXActive(bool value)
+    private void RpcSetGFXActive(bool value)
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(value);
     }
@@ -124,7 +124,7 @@ public class PlayerBehavior : NetworkBehaviour
             if (RespawnTimer.Expired(Runner))
             {
                 _rb.Rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-                StartCoroutine(Respawn());
+                //StartCoroutine(Respawn());
             }
         }
 
@@ -137,7 +137,7 @@ public class PlayerBehavior : NetworkBehaviour
             switch (change)
             {
                 case nameof(Respawning):
-                    SetGFXActive(!Respawning);
+                    RpcSetGFXActive(!Respawning);
                     break;
                 case nameof(Nickname):
                     OnNickChanged();
