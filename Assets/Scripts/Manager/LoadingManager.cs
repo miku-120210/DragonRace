@@ -55,11 +55,11 @@ public class LoadingManager : MonoBehaviour
 
     public void StartLoadingScreen()
     {
-        _loadingScreenAnimator.Play("In");
+        //_loadingScreenAnimator.Play("In");
     }
 
     public void FinishLoadingScreen()
     {
-        _loadingScreenAnimator.Play("Out");
+        //_loadingScreenAnimator.Play("Out");
     }
 }

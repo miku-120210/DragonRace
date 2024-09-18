@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player:
-    RawGuidValue: 00000000000000000000000000000000
+    RawGuidValue: b191255e1eeb0514eb2f34798345c527
   _spawnPoints: []
 --- !u!1 &2063652298735354983
 GameObject:
