@@ -6,31 +6,35 @@ using UnityEngine;
 public class PlayerSpawnManager : MonoBehaviour
 {
     public NetworkPrefabRef Player;
-    [SerializeField] private List<GameObject> _spawnPoints;
+    [SerializeField] private List<Transform> _spawnPoints;
     public static List<Vector2> PlayerSpawnPoints = new();
 
     private void Awake()
     {
         for (var i = 0; i < _spawnPoints.Count; i++)
         {
-            _spawnPoints[i].transform.position = PlayerSpawnPoints[i];
+            _spawnPoints[i].position = PlayerSpawnPoints[i];
         }
     }
-    private void SpawnPlayer(NetworkRunner runner, PlayerRef player, string nick = "")
+    public void SpawnPlayer(NetworkRunner runner, string nick = "")
     {
-        if (runner.IsServer)
+        if (!runner.IsClient)
         {
-            NetworkObject playerObj = runner.Spawn(Player, PlayerSpawnPoints[1], Quaternion.identity, player, InitializeObjBeforeSpawn);
+            foreach (var activePlayer in runner.ActivePlayers)
+            {
+                if (!runner.IsServer) return;
+                
+                NetworkObject playerObj = runner.Spawn(Player, PlayerSpawnPoints[1], Quaternion.identity, activePlayer, InitializeObjBeforeSpawn);
+                PlayerData data = GameManager.Instance.GetPlayerData(activePlayer, runner);
+                data.Instance = playerObj;
 
-            PlayerData data = GameManager.Instance.GetPlayerData(player, runner);
-            data.Instance = playerObj;
-
-            playerObj.GetComponent<PlayerBehavior>().Nickname = data.Nick;
+                playerObj.GetComponent<PlayerBehaviour>().Nickname = data.Nick;
+            }
         }
     }
     private void InitializeObjBeforeSpawn(NetworkRunner runner, NetworkObject obj)
     {
-        var behaviour = obj.GetComponent<PlayerBehavior>();
+        var behaviour = obj.GetComponent<PlayerBehaviour>();
         behaviour.PlayerColor = new Color32((byte)UnityEngine.Random.Range(0, 255), (byte)UnityEngine.Random.Range(0, 255), (byte)UnityEngine.Random.Range(0, 255), 255);
     }
 
