@@ -5,7 +5,7 @@ using UnityEngine;
 using static Fusion.NetworkBehaviour;
 using static UnityEngine.EventSystems.PointerEventData;
 
-public class PlayerBehavior : NetworkBehaviour
+public class PlayerBehaviour : NetworkBehaviour
 {
     [Networked]
     public NetworkString<_16> Nickname { get; set; }

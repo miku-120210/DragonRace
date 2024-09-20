@@ -84,13 +84,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //public void AllowAllPlayersInputs()
-    //{
-    //    foreach (PlayerBehaviour behaviour in FindObjectsOfType<PlayerBehaviour>())
-    //    {
-    //        behaviour.SetInputsAllowed(true);
-    //    }
-    //}
+    public void AllowAllPlayersInputs()
+    {
+        foreach (PlayerBehaviour behaviour in FindObjectsOfType<PlayerBehaviour>())
+        {
+            behaviour.SetInputsAllowed(true);
+        }
+    }
 
     ///// <summary>
     ///// Start player's spectator state.

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2897237812849608365}
   - component: {fileID: 4471866071881887675}
+  - component: {fileID: 1514363408223900580}
   m_Layer: 0
   m_Name: InGameManager
   m_TagString: Untagged
@@ -50,6 +51,23 @@ MonoBehaviour:
   Player:
     RawGuidValue: b191255e1eeb0514eb2f34798345c527
   _spawnPoints: []
+--- !u!114 &1514363408223900580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170038538666589731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95f74dadd0464d8588a3e914ab83361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPlayerDisconnectEvent: {fileID: 11400000, guid: b31a37b7031ed3d4b9749ff5de30a950, type: 2}
+  _levelTime: 300
+  _startTimer: {fileID: 8778542351189560913}
+  _timer: {fileID: 618930598197528829}
+  _playersAlreadyFinish: 0
 --- !u!1 &2063652298735354983
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +454,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4180982260863726698}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
