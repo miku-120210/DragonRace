@@ -13,7 +13,7 @@ using UnityEngine.Serialization;
 public class InGameManager : NetworkBehaviour
 {
   public FusionEvent OnPlayerDisconnectEvent;
-  [SerializeField] private float _levelTime = 300f;
+  [SerializeField] private float _levelTime = 10f;
 
   [Networked] private TickTimer StartTimer { get; set; }
   [Networked] private TickTimer Timer { get; set; }
@@ -68,8 +68,27 @@ public class InGameManager : NetworkBehaviour
       }
     }
   }
+    public override void Render()
+    {
+        if (StartTimer.IsRunning && _startTimer.gameObject.activeInHierarchy)
+        {
+            _startTimer.text = ((int?)StartTimer.RemainingTime(Runner)).ToString();
+        }
 
-  public void StartLevel()
+        if (StartTimer.Expired(Runner))
+        {
+            _startTimer.gameObject.SetActive(false);
+            _timer.gameObject.SetActive(true);
+        }
+
+        if (Timer.IsRunning)
+        {
+            _timer.text = ((int?)Timer.RemainingTime(Runner)).ToString();
+        }
+    }
+
+
+    public void StartLevel()
   {
     SetLevelStartValues();
     // StartLevelMusic();
@@ -96,7 +115,26 @@ public class InGameManager : NetworkBehaviour
     }
   }
 
-  [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    public void PlayerOnFinishLine(PlayerRef player, PlayerBehaviour playerBehaviour)
+    {
+        if (_playersAlreadyFinish >= 3 || _winners.Contains(player)) { return; }
+
+        _winners.Set(_playersAlreadyFinish, player);
+
+        _playersAlreadyFinish++;
+
+        playerBehaviour.SetInputsAllowed(false);
+
+        if (_playersAlreadyFinish >= 3 || _playersAlreadyFinish >= Runner.ActivePlayers.Count())
+        {
+            RPC_FinishLevel();
+            return;
+        }
+    }
+
+
+
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
   private void RPC_FinishLevel()
   {
     int i = 0;
@@ -105,7 +143,6 @@ public class InGameManager : NetworkBehaviour
       PlayerData data = GameManager.Instance.GetPlayerData(player, Runner);
       if (data != null)
       {
-        Debug.Log("Player Number: "+data.Instance.GetComponent<PlayerBehaviour>().PlayerID);
         // _finishRace.SetWinner(data.Nick.ToString(), data.Instance.GetComponent<PlayerBehaviour>().PlayerColor, i);
       }
       i++;

@@ -170,7 +170,7 @@ public class PlayerBehaviour : NetworkBehaviour
 
         if (Runner.IsServer)
         {
-            //FindObjectOfType<LevelBehaviour>().PlayerOnFinishLine(Object.InputAuthority, this);
+            FindObjectOfType<InGameManager>().PlayerOnFinishLine(Object.InputAuthority, this);
             Finished = true;
         }
     }
@@ -195,6 +195,7 @@ public class PlayerBehaviour : NetworkBehaviour
             else if (_hitCollider.tag.Equals("Finish") && !Finished)
             {
                 FinishRace();
+                Debug.Log("Player " + PlayerID + " Finish");
             }
         }
     }

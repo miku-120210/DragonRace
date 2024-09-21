@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 966451731}
   - component: {fileID: 966451730}
   - component: {fileID: 966451729}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126537,6 +126537,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1891715631210264512, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2063652298735354983, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -126607,11 +126611,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3997104869710904726, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.49
+      value: -304.5
       objectReference: {fileID: 0}
     - target: {fileID: 3997104869710904726, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 78.4
+      value: -196.3
       objectReference: {fileID: 0}
     - target: {fileID: 4313245045144423163, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_Icon

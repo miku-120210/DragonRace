@@ -10,12 +10,12 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
     private NetworkRigidbody2D _rb;
     private InputController _inputController;
 
-    [SerializeField] float _speed = 10f;
-    [SerializeField] float _jumpForce = 10f;
-    [SerializeField] float _maxVelocity = 8f;
+    [SerializeField] float _speed = 800f;
+    [SerializeField] float _jumpForce = 50f;
+    [SerializeField] float _maxVelocity = 5f;
 
-    [SerializeField] private float fallMultiplier = 3.3f;
-    [SerializeField] private float lowJumpMultiplier = 2f;
+    [SerializeField] private float fallMultiplier = 13f;
+    [SerializeField] private float lowJumpMultiplier = 10f;
     private readonly float wallSlidingMultiplier = 1f;
 
     private Vector2 _groundHorizontalDragVector = new Vector2(.1f, 1);
@@ -76,6 +76,7 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
         _wallSliding = default;
 
         IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .3f), Vector2.one * .85f, 0, _groundLayer);
+        Debug.Log($"IsGrounded: {IsGrounded}");
         if (IsGrounded)
         {
             CoyoteTimeCD = false;
@@ -249,7 +250,7 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
     /// <param name="input"></param>
     private void BetterJumpLogic(InputData input)
     {
-        if (IsGrounded) { return; }
+        if (IsGrounded) return;
         if (_rb.Rigidbody.velocity.y < 0)
         {
             if (_wallSliding && input.AxisPressed())

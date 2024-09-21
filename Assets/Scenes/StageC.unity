@@ -205,7 +205,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &284768647
 GameObject:
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 632999982}
   - component: {fileID: 632999981}
   - component: {fileID: 632999980}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7946,7 +7946,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1201926141
 GameObject:
@@ -126667,6 +126667,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1891715631210264512, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2063652298735354983, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -126685,7 +126689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2897237812849608365, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2897237812849608365, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -126737,11 +126741,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3997104869710904726, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.49
+      value: -305.7
       objectReference: {fileID: 0}
     - target: {fileID: 3997104869710904726, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 78.4
+      value: -196.7
       objectReference: {fileID: 0}
     - target: {fileID: 4313245045144423163, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_Icon
