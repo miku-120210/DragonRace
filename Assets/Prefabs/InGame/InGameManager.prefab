@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2897237812849608365}
   - component: {fileID: 4471866071881887675}
   - component: {fileID: 1514363408223900580}
+  - component: {fileID: 8417723099116897923}
   m_Layer: 0
   m_Name: InGameManager
   m_TagString: Untagged
@@ -68,6 +69,24 @@ MonoBehaviour:
   _startTimer: {fileID: 8778542351189560913}
   _timer: {fileID: 618930598197528829}
   _playersAlreadyFinish: 0
+--- !u!114 &8417723099116897923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170038538666589731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 2586692640
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 1514363408223900580}
 --- !u!1 &2063652298735354983
 GameObject:
   m_ObjectHideFlags: 0

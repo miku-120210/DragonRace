@@ -105,7 +105,7 @@ public class InGameManager : NetworkBehaviour
       PlayerData data = GameManager.Instance.GetPlayerData(player, Runner);
       if (data != null)
       {
-        Debug.Log(data.Instance.GetComponent<PlayerBehaviour>().PlayerID);
+        Debug.Log("Player Number: "+data.Instance.GetComponent<PlayerBehaviour>().PlayerID);
         // _finishRace.SetWinner(data.Nick.ToString(), data.Instance.GetComponent<PlayerBehaviour>().PlayerColor, i);
       }
       i++;
