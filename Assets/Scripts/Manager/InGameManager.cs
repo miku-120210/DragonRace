@@ -72,7 +72,8 @@ public class InGameManager : NetworkBehaviour
     {
         if (StartTimer.IsRunning && _startTimer.gameObject.activeInHierarchy)
         {
-            _startTimer.text = ((int?)StartTimer.RemainingTime(Runner)).ToString();
+            if ((int?)StartTimer.RemainingTime(Runner) == 0) _startTimer.text = "GO!";
+            else _startTimer.text = ((int?)StartTimer.RemainingTime(Runner)).ToString();
         }
 
         if (StartTimer.Expired(Runner))
@@ -98,7 +99,7 @@ public class InGameManager : NetworkBehaviour
   private void SetLevelStartValues()
   {
     _playersAlreadyFinish = 0;
-    StartTimer = TickTimer.CreateFromSeconds(Runner, 5);
+    StartTimer = TickTimer.CreateFromSeconds(Runner, 4);
     _startTimer.gameObject.SetActive(true);
     for (int i = 0; i < 3; i++)
     {
@@ -147,7 +148,7 @@ public class InGameManager : NetworkBehaviour
       }
       i++;
     }
-
+        Debug.Log("finish");
     // _finishRace.FadeIn();
     //
     // _finishRace.Invoke("FadeOut", 5f);

@@ -76,7 +76,6 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
         _wallSliding = default;
 
         IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox((Vector2)transform.position + Vector2.down * (_collider.bounds.extents.y - .3f), Vector2.one * .85f, 0, _groundLayer);
-        Debug.Log($"IsGrounded: {IsGrounded}");
         if (IsGrounded)
         {
             CoyoteTimeCD = false;
