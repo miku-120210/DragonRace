@@ -129,7 +129,7 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  _speed: 800
+  _speed: 2500
   _jumpForce: 50
   _maxVelocity: 5
   fallMultiplier: 13

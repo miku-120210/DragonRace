@@ -10,7 +10,7 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
     private NetworkRigidbody2D _rb;
     private InputController _inputController;
 
-    [SerializeField] float _speed = 800f;
+    [SerializeField] float _speed = 2500f;
     [SerializeField] float _jumpForce = 50f;
     [SerializeField] float _maxVelocity = 5f;
 
