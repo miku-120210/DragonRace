@@ -94,7 +94,7 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
             }
         }
 
-        _wallSliding = Runner.GetPhysicsScene2D().OverlapCircle(transform.position + Vector3.right * (_collider.bounds.extents.x), .1f, _groundLayer);
+        _wallSliding = Runner.GetPhysicsScene2D().OverlapCircle(transform.position + Vector3.right * (_collider.bounds.extents.x), .5f, _groundLayer);
         if (_wallSliding)
         {
             _wallSlidingNormal = Vector2.left;
@@ -102,7 +102,7 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
         }
         else
         {
-            _wallSliding = Runner.GetPhysicsScene2D().OverlapCircle(transform.position - Vector3.right * (_collider.bounds.extents.x), .1f, _groundLayer);
+            _wallSliding = Runner.GetPhysicsScene2D().OverlapCircle(transform.position - Vector3.right * (_collider.bounds.extents.x), .5f, _groundLayer);
             if (_wallSliding)
             {
                 _wallSlidingNormal = Vector2.right;

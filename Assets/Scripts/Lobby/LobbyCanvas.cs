@@ -31,6 +31,7 @@ public class LobbyCanvas : MonoBehaviour
 
     [SerializeField] private GameObject _inputPanel;
     [SerializeField] private GameObject _LobbyPanel;
+    [SerializeField] private GameObject _loadingPanel;
     [SerializeField] private TMP_InputField _nickname;
     [SerializeField] private TMP_InputField _room;
     [SerializeField] private TextMeshProUGUI _lobbyPlayerText;
@@ -55,7 +56,7 @@ public class LobbyCanvas : MonoBehaviour
             SetGameMode(GameMode.Client);
         });
 
-        _nextButton.onClick.AddListener(StartLauncher);
+        _nextButton.onClick.AddListener(StartLauncherAsync);
 
         _startButton.onClick.AddListener(() =>
         {
@@ -90,12 +91,18 @@ public class LobbyCanvas : MonoBehaviour
         _inputPanel.gameObject.SetActive(true);
     }
 
-    public void StartLauncher()
+    public async void StartLauncherAsync()
     {
         Launcher = FindObjectOfType<GameLauncher>();
         Nickname = _nickname.text;
         PlayerPrefs.SetString("Nickname", Nickname);
-        Launcher.Launch(_gameMode, _room.text);
+        PlayerPrefs.Save();
+
+        _loadingPanel.gameObject.SetActive(true);
+
+        await Launcher.Launch(_gameMode, _room.text);
+
+        _loadingPanel.gameObject.SetActive(false);
         _inputPanel.SetActive(false);
     }
 
@@ -144,14 +151,12 @@ public class LobbyCanvas : MonoBehaviour
 
     public void ShowLobbyCanvas(PlayerRef player, NetworkRunner runner)
     {
-        Debug.Log("showlobbycanvas");
         _LobbyPanel.SetActive(true);
     }
 
 
     public void UpdateLobbyList(PlayerRef playerRef, NetworkRunner runner)
     {
-        Debug.Log("UpdateLobbyList");
         _startButton.gameObject.SetActive(runner.IsServer);
         string players = default;
         string isLocal;
@@ -161,6 +166,7 @@ public class LobbyCanvas : MonoBehaviour
             players += GameManager.Instance.GetPlayerData(player, runner)?.Nick + isLocal + " \n";
         }
         _lobbyPlayerText.text = players;
+        Debug.Log("Player : " + players);
         _lobbyRoomName.text = $"Room: {runner.SessionInfo.Name}";
     }
 

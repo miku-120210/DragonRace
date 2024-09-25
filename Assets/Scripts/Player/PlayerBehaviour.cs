@@ -60,11 +60,11 @@ public class PlayerBehaviour : NetworkBehaviour
 
             if (Nickname == string.Empty)
             {
-                RPC_SetNickname(PlayerPrefs.GetString("Nick"));
+                RPC_SetNickname(PlayerPrefs.GetString("Nickname"));
             }
             GetComponentInChildren<SpriteRenderer>().sortingOrder += 1;
         }
-        //GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
+        GetComponentInChildren<NicknameText>().SetupNickname(Nickname.ToString());
         GetComponentInChildren<SpriteRenderer>().color = PlayerColor;
         //_particleManager.ClearParticles();
     }

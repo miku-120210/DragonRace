@@ -26,7 +26,8 @@ public class PlayerData : NetworkBehaviour
         _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState, false);
         if (Object.HasInputAuthority)
         {
-            string nickName = PlayerPrefs.GetString("Nick", string.Empty);
+            string nickName = PlayerPrefs.GetString("Nickname", string.Empty);
+            Debug.Log("Nickname: " + nickName);
             RPC_SetNick(string.IsNullOrEmpty(nickName) ? $"Player {Object.InputAuthority.AsIndex}" : nickName);
         }
 
