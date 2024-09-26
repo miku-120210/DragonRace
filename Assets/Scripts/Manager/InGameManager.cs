@@ -1,14 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Fusion;
 using System.Linq;
-using System.Threading.Tasks;
-using System;
 using FusionUtilsEvents;
 using TMPro;
-using UnityEngine.Serialization;
 
 public class InGameManager : NetworkBehaviour
 {
@@ -22,6 +16,7 @@ public class InGameManager : NetworkBehaviour
   [SerializeField] private TextMeshProUGUI _timer;
   [SerializeField]
   private int _playersAlreadyFinish = 0;
+  private bool _isInitializedTimer = false;
 
   [Networked, Capacity(3)]
   private NetworkArray<PlayerRef> _winners => default;
@@ -52,10 +47,11 @@ public class InGameManager : NetworkBehaviour
   
   public override void FixedUpdateNetwork()
   {
-    if (StartTimer.Expired(Runner))
+    if (StartTimer.Expired(Runner) && !_isInitializedTimer)
     {
       Timer = TickTimer.CreateFromSeconds(Runner, _levelTime);
       GameManager.Instance.AllowAllPlayersInputs();
+      _isInitializedTimer = true;
     }
 
     if (Timer.IsRunning)
@@ -71,8 +67,7 @@ public class InGameManager : NetworkBehaviour
     {
         if (StartTimer.IsRunning && _startTimer.gameObject.activeInHierarchy)
         {
-            if ((int?)StartTimer.RemainingTime(Runner) == 0) _startTimer.text = "GO!";
-            else _startTimer.text = ((int?)StartTimer.RemainingTime(Runner)).ToString();
+          _startTimer.text = (int?)StartTimer.RemainingTime(Runner) == 0 ? "GO!" : ((int?)StartTimer.RemainingTime(Runner)).ToString();
         }
 
         if (StartTimer.Expired(Runner))
