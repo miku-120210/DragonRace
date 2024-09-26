@@ -20,11 +20,12 @@ public class ResultScreen : MonoBehaviour
 
     public void SetWinner(string nick, Color color, int place)
     {
-        _winnerNickname[place].text = nick;
-        _winnerImage[place].color = color;
-
         _winnerImage[place].gameObject.SetActive(true);
         _winnerNickname[place].gameObject.SetActive(true);
+
+        _winnerNickname[place].text = nick;
+        _winnerImage[place].color = color;
+        Debug.Log(_winnerImage[place].color);
     }
     public void FadeIn()
     {

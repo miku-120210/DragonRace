@@ -126553,7 +126553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1514363408223900580, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: _levelTime
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1891715631210264512, guid: 3f0716262809a5e4e9f931a8c9b90f4b, type: 3}
       propertyPath: m_Size.x
@@ -126826,7 +126826,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083836401}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellSize: {x: 1.28, y: 1.28, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -126838,7 +126838,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083836401}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -333, y: -209, z: 0}
+  m_LocalPosition: {x: -424.2, y: -263, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -27,7 +27,6 @@ public class PlayerData : NetworkBehaviour
         if (Object.HasInputAuthority)
         {
             string nickName = PlayerPrefs.GetString("Nickname", string.Empty);
-            Debug.Log("Nickname: " + nickName);
             RPC_SetNick(string.IsNullOrEmpty(nickName) ? $"Player {Object.InputAuthority.AsIndex}" : nickName);
         }
 

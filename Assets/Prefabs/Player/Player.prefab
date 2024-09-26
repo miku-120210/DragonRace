@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4290463472264001830}
   - component: {fileID: 6081852056106136938}
   - component: {fileID: 1163878317254207458}
-  - component: {fileID: 2861023046466289123}
+  - component: {fileID: 5080745457729535506}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -157,8 +157,8 @@ MonoBehaviour:
     Position: 0.01
     Rotation: 0.01
     Scale: 0.01
---- !u!61 &2861023046466289123
-BoxCollider2D:
+--- !u!70 &5080745457729535506
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -170,19 +170,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.3, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.75, y: 6.52}
-    newSize: {x: 5.75, y: 6.52}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.5, y: 6}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.3, y: -0.1}
+  m_Size: {x: 3.3, y: 5.8}
+  m_Direction: 0
 --- !u!1 &3978263603580339914
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,8 +343,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 57769c649fecc8644b0105d764360ffc, type: 2}
+  m_sharedMaterial: {fileID: 1691253184869767578, guid: 57769c649fecc8644b0105d764360ffc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

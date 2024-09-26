@@ -195,7 +195,6 @@ public class PlayerBehaviour : NetworkBehaviour
             else if (_hitCollider.tag.Equals("Finish") && !Finished)
             {
                 FinishRace();
-                Debug.Log("Player " + PlayerID + " Finish");
             }
         }
     }

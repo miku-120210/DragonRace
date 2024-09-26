@@ -164,7 +164,6 @@ public class LobbyCanvas : MonoBehaviour
             players += GameManager.Instance.GetPlayerData(player, runner)?.Nick + isLocal + " \n";
         }
         _lobbyPlayerText.text = players;
-        Debug.Log("Player : " + players);
         _lobbyRoomName.text = $"Room: {runner.SessionInfo.Name}";
     }
 
