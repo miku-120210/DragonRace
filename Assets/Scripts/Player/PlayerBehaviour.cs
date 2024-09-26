@@ -70,7 +70,7 @@ public class PlayerBehaviour : NetworkBehaviour
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
-    public void RPC_SetNickname(string nick)
+    private void RPC_SetNickname(string nick)
     {
         Nickname = nick;
     }
@@ -103,7 +103,7 @@ public class PlayerBehaviour : NetworkBehaviour
 
     private void OnNickChanged()
     {
-        //GetComponentInChildren<NicknameText>().SetupNick(Nickname.ToString());
+        GetComponentInChildren<NicknameText>().SetupNickname(Nickname.ToString());
     }
 
     public override void FixedUpdateNetwork()
