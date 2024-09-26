@@ -58,10 +58,7 @@ public class LobbyCanvas : MonoBehaviour
 
         _nextButton.onClick.AddListener(StartLauncherAsync);
 
-        _startButton.onClick.AddListener(() =>
-        {
-            StartButton();
-        });
+        _startButton.onClick.AddListener(StartButton);
     }
 
     private void OnEnable()
@@ -91,7 +88,7 @@ public class LobbyCanvas : MonoBehaviour
         _inputPanel.gameObject.SetActive(true);
     }
 
-    public async void StartLauncherAsync()
+    private async void StartLauncherAsync()
     {
         Launcher = FindObjectOfType<GameLauncher>();
         Nickname = _nickname.text;
@@ -149,8 +146,9 @@ public class LobbyCanvas : MonoBehaviour
         _startButton.gameObject.SetActive(runner.IsServer);
     }
 
-    public void ShowLobbyCanvas(PlayerRef player, NetworkRunner runner)
+    private void ShowLobbyCanvas(PlayerRef player, NetworkRunner runner)
     {
+        _loadingPanel.SetActive(false);
         _LobbyPanel.SetActive(true);
     }
 

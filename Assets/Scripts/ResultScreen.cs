@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,7 +10,13 @@ public class ResultScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] _winnerNickname = new TextMeshProUGUI[3];
     [SerializeField] private Image[] _winnerImage = new Image[3];
 
-    private Animator _anim;
+    [SerializeField] private Animator _anim;
+    [SerializeField] private Button _endButton;
+
+    private void Awake()
+    {
+        _endButton.onClick.AddListener(BackToTitle);
+    }
 
     public void SetWinner(string nick, Color color, int place)
     {
@@ -24,8 +31,9 @@ public class ResultScreen : MonoBehaviour
         _anim.Play("FadeIn");
     }
 
-    public void FadeOut()
+    private void BackToTitle()
     {
         _anim.Play("FadeOut");
+        GameManager.Instance.ExitGame();
     }
 }

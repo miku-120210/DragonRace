@@ -25,14 +25,13 @@ public class InGameManager : NetworkBehaviour
 
   [Networked, Capacity(3)]
   private NetworkArray<PlayerRef> _winners => default;
-  public NetworkArray<PlayerRef> Winners { get => _winners; }
+  private NetworkArray<PlayerRef> Winners { get => _winners; }
 
-  // private FinishRaceScreen _finishRace;
+  [SerializeField] private ResultScreen _resultScreen;
   
   public override void Spawned()
   {
     FindObjectOfType<PlayerSpawnManager>().SpawnPlayer(Runner);
-    // _finishRace = FindObjectOfType<FinishRaceScreen>();
     StartLevel();
   }
   void OnEnable()
@@ -129,7 +128,6 @@ public class InGameManager : NetworkBehaviour
         if (_playersAlreadyFinish >= 3 || _playersAlreadyFinish >= Runner.ActivePlayers.Count())
         {
             RPC_FinishLevel();
-            return;
         }
     }
 
@@ -144,16 +142,12 @@ public class InGameManager : NetworkBehaviour
       PlayerData data = GameManager.Instance.GetPlayerData(player, Runner);
       if (data != null)
       {
-        // _finishRace.SetWinner(data.Nick.ToString(), data.Instance.GetComponent<PlayerBehaviour>().PlayerColor, i);
+        _resultScreen.SetWinner(data.Nick.ToString(), data.Instance.GetComponent<PlayerBehaviour>().PlayerColor, i);
       }
       i++;
     }
-        Debug.Log("finish");
-    // _finishRace.FadeIn();
-    //
-    // _finishRace.Invoke("FadeOut", 5f);
-
-    // kokode back to home
+    _resultScreen.gameObject.SetActive(true);
+    _resultScreen.FadeIn();
   }
 
 }

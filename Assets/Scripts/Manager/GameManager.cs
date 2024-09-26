@@ -126,13 +126,13 @@ public class GameManager : MonoBehaviour
         _playerData.Clear();
     }
 
-    public void DisconnectedFromSession(PlayerRef player, NetworkRunner runner)
+    private void DisconnectedFromSession(PlayerRef player, NetworkRunner runner)
     {
         Debug.Log("Disconnected from the session");
         ExitSession();
     }
 
-    public void ExitSession()
+    private void ExitSession()
     {
         _ = ShutdownRunner();
         LoadLevelManager.ResetLoadedScene();
@@ -140,11 +140,11 @@ public class GameManager : MonoBehaviour
         _exitCanvas.SetActive(false);
     }
 
-    //public void ExitGame()
-    //{
-    //    _ = ShutdownRunner();
-    //    Application.Quit();
-    //}
+    public void ExitGame()
+    {
+        _ = ShutdownRunner();
+        Application.Quit();
+    }
 
     public void SetPlayerDataObject(PlayerRef objectInputAuthority, PlayerData playerData)
     {
