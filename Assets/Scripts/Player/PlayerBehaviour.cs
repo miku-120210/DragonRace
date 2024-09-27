@@ -7,6 +7,7 @@ using static UnityEngine.EventSystems.PointerEventData;
 
 public class PlayerBehaviour : NetworkBehaviour
 {
+    public Transform CameraTransform;
     [Networked]
     public NetworkString<_16> Nickname { get; set; }
     [Networked]
@@ -55,8 +56,8 @@ public class PlayerBehaviour : NetworkBehaviour
 
         if (Object.HasInputAuthority)
         {
-            //CameraManager camera = FindObjectOfType<CameraManager>();
-            //camera.CameraTarget = CameraTransform;
+            CameraManager camera = FindObjectOfType<CameraManager>();
+            camera.CameraTarget = CameraTransform;
 
             if (Nickname == string.Empty)
             {
