@@ -166,7 +166,7 @@ public class PlayerBehaviour : NetworkBehaviour
 
         if (Object.HasInputAuthority)
         {
-            //GameManager.Instance.SetPlayerSpectating(this);
+            GameManager.Instance.SetPlayerSpectating(this);
         }
 
         if (Runner.IsServer)

@@ -95,11 +95,11 @@ public class GameManager : MonoBehaviour
     ///// <summary>
     ///// Start player's spectator state.
     ///// </summary>
-    //public void SetPlayerSpectating(PlayerBehaviour playerBehaviour)
-    //{
-    //    FindObjectOfType<CameraManager>().SetSpectating();
-    //    playerBehaviour.SetInputsAllowed(false);
-    //}
+    public void SetPlayerSpectating(PlayerBehaviour playerBehaviour)
+    {
+        FindObjectOfType<CameraManager>().SetSpectating();
+        playerBehaviour.SetInputsAllowed(false);
+    }
 
     public void PlayerDisconnected(PlayerRef player, NetworkRunner runner)
     {
