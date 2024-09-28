@@ -12,6 +12,7 @@ public class ResultScreen : MonoBehaviour
 
     [SerializeField] private Animator _anim;
     [SerializeField] private Button _endButton;
+    //[SerializeField] private ParticleSystem _confetti;
 
     private void Awake()
     {
@@ -25,11 +26,11 @@ public class ResultScreen : MonoBehaviour
 
         _winnerNickname[place].text = nick;
         _winnerImage[place].color = color;
-        Debug.Log(_winnerImage[place].color);
     }
     public void FadeIn()
     {
         _anim.Play("FadeIn");
+        //_confetti.Play();
     }
 
     private void BackToTitle()
