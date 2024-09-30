@@ -23,11 +23,15 @@ public class InGameManager : NetworkBehaviour
   private NetworkArray<PlayerRef> Winners { get => _winners; }
 
   [SerializeField] private ResultScreen _resultScreen;
-  
+
+  [SerializeField] AudioSource _audioSource;
+  [SerializeField] AudioClip _startSe;
+
   public override void Spawned()
   {
     FindObjectOfType<PlayerSpawnManager>().SpawnPlayer(Runner);
     StartLevel();
+    _audioSource.PlayOneShot(_startSe);
   }
   void OnEnable()
   {
@@ -52,6 +56,7 @@ public class InGameManager : NetworkBehaviour
       Timer = TickTimer.CreateFromSeconds(Runner, _levelTime);
       GameManager.Instance.AllowAllPlayersInputs();
       _isInitializedTimer = true;
+      _audioSource.Play();
     }
 
     if (Timer.IsRunning)
@@ -131,6 +136,7 @@ public class InGameManager : NetworkBehaviour
     [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
   private void RPC_FinishLevel()
   {
+    _audioSource.Stop();
     int i = 0;
     foreach (var player in Winners)
     {

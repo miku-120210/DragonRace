@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour
     public float Speed = 6f;
     public Transform CameraTarget;
 
-    private Vector3 _offset = new Vector3(0, 5, 0);
+    private Vector3 _offset = new Vector3(0, 3, 0);
     private float _step;
 
     private List<PlayerBehaviour> _spectatingList = new List<PlayerBehaviour>();
