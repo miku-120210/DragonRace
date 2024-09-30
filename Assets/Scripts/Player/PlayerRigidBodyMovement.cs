@@ -10,18 +10,18 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
     private NetworkRigidbody2D _rb;
     private InputController _inputController;
 
-    [SerializeField] float _speed = 2500f;
-    [SerializeField] float _jumpForce = 50f;
+    [SerializeField] float _speed = 1500f;
+    [SerializeField] float _jumpForce = 10f;
     [SerializeField] float _maxVelocity = 5f;
 
-    [SerializeField] private float fallMultiplier = 13f;
-    [SerializeField] private float lowJumpMultiplier = 10f;
+    [SerializeField] private float fallMultiplier = 7f;
+    [SerializeField] private float lowJumpMultiplier = 7f;
     private readonly float wallSlidingMultiplier = 1f;
 
-    private Vector2 _groundHorizontalDragVector = new Vector2(.1f, 1);
-    private Vector2 _airHorizontalDragVector = new Vector2(.98f, 1);
-    private Vector2 _horizontalSpeedReduceVector = new Vector2(.95f, 1);
-    private Vector2 _verticalSpeedReduceVector = new Vector2(1, .95f);
+    private Vector2 _groundHorizontalDragVector = new Vector2(0.1f, 1);
+    private Vector2 _airHorizontalDragVector = new Vector2(0.98f, 1);
+    private Vector2 _horizontalSpeedReduceVector = new Vector2(0.95f, 1);
+    private Vector2 _verticalSpeedReduceVector = new Vector2(1, 0.95f);
 
     private Collider2D _collider;
     [Networked]
@@ -29,11 +29,11 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
     private bool _wallSliding;
     private Vector2 _wallSlidingNormal;
 
-    private float _jumpBufferThreshold = .2f;
+    private float _jumpBufferThreshold = 0.2f;
     private float _jumpBufferTime;
 
     [Networked]
-    private float CoyoteTimeThreshold { get; set; } = .1f;
+    private float CoyoteTimeThreshold { get; set; } = 0.1f;
     [Networked]
     private float TimeLeftGrounded { get; set; }
     [Networked]
@@ -94,21 +94,58 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
             }
         }
 
-        _wallSliding = Runner.GetPhysicsScene2D().OverlapCircle(transform.position + Vector3.right * (_collider.bounds.extents.x), .5f, _groundLayer);
-        if (_wallSliding)
+        RaycastHit2D hitRight = Runner.GetPhysicsScene2D().CircleCast(
+            transform.position + Vector3.right * (_collider.bounds.extents.x), // 円の中心
+            0.3f, // 円の半径
+            Vector2.zero, // キャスト方向（今回は移動させないので Vector2.zero）
+            0f, // キャスト距離（その場での判定なので0）
+            _groundLayer // 対象のレイヤー
+            );
+
+        if (hitRight.collider != null) // 右壁に接触しているか確認
         {
-            _wallSlidingNormal = Vector2.left;
+            _wallSliding = true;
+            _wallSlidingNormal = Vector2.left; // 右壁に接触しているので、法線は左向き
+#if UNITY_EDITOR
+            Debug.Log("右壁接触したよー");
+
+            // ヒットした場所を可視化（円の中心からヒット位置まで線を引く）
+            Debug.DrawLine(
+                transform.position + Vector3.right * (_collider.bounds.extents.x), // キャストした円の中心
+                hitRight.point, // ヒットした場所
+                Color.red, // 線の色
+                1.0f // 線が表示される時間（秒）
+            );
+#endif
             return;
         }
         else
         {
-            _wallSliding = Runner.GetPhysicsScene2D().OverlapCircle(transform.position - Vector3.right * (_collider.bounds.extents.x), .5f, _groundLayer);
-            if (_wallSliding)
+            RaycastHit2D hitLeft = Runner.GetPhysicsScene2D().CircleCast(
+                transform.position - Vector3.right * (_collider.bounds.extents.x),
+                0.3f,
+                Vector2.zero,
+                0f,
+                _groundLayer
+                );
+
+            if (hitLeft.collider != null)
             {
+                _wallSliding = true;
                 _wallSlidingNormal = Vector2.right;
+
+#if UNITY_EDITOR
+                Debug.Log("左壁接触したよー");
+                // ヒットした場所を可視化（円の中心からヒット位置まで線を引く）
+                Debug.DrawLine(
+                    transform.position - Vector3.right * (_collider.bounds.extents.x),
+                    hitLeft.point,
+                    Color.blue,
+                    1.0f
+                );
+#endif
             }
         }
-
     }
 
     public bool GetGrounded()
@@ -206,6 +243,7 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
                 {
                     _rb.Rigidbody.velocity *= Vector2.zero; //Reset y and x Velocity
                     _rb.Rigidbody.AddForce((Vector2.up + (_wallSlidingNormal)) * _jumpForce, ForceMode2D.Impulse);
+                    //Debug.Log(_wallSlidingNormal);
                     CoyoteTimeCD = true;
                     if (Runner.IsForward && Object.HasInputAuthority)
                     {

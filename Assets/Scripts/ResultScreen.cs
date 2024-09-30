@@ -12,7 +12,9 @@ public class ResultScreen : MonoBehaviour
 
     [SerializeField] private Animator _anim;
     [SerializeField] private Button _endButton;
-    //[SerializeField] private ParticleSystem _confetti;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _resultSe;
+    [SerializeField] private AudioClip _buttonSe;
 
     private void Awake()
     {
@@ -30,12 +32,17 @@ public class ResultScreen : MonoBehaviour
     public void FadeIn()
     {
         _anim.Play("FadeIn");
-        //_confetti.Play();
     }
 
     private void BackToTitle()
     {
+        _audioSource.PlayOneShot(_buttonSe);
         _anim.Play("FadeOut");
         GameManager.Instance.ExitGame();
+    }
+
+    private void ResultSE()
+    {
+        _audioSource.PlayOneShot(_resultSe);
     }
 }

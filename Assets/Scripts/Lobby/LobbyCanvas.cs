@@ -37,28 +37,51 @@ public class LobbyCanvas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _lobbyPlayerText;
     [SerializeField] private TextMeshProUGUI _lobbyRoomName;
 
+    [SerializeField] AudioSource _bgm;
+    [SerializeField] AudioClip _buttonSe;
+
 
     void Start()
     {
-        _homeButton.onClick.AddListener(OnClickHome);
-        _lobbyToHomeButton.onClick.AddListener(LeaveLobby);
+        _bgm.Play();
+        _homeButton.onClick.AddListener(()=> 
+        {
+            OnClickHome();
+            _bgm.PlayOneShot(_buttonSe);
+         });
+        _lobbyToHomeButton.onClick.AddListener(() =>
+        {
+            LeaveLobby();
+            _bgm.PlayOneShot(_buttonSe);
+        });
 
         _singlePlayButton.onClick.AddListener(() =>
         {
             SetGameMode(GameMode.Single);
+            _bgm.PlayOneShot(_buttonSe);
         });
         _hostButton.onClick.AddListener(() =>
         {
             SetGameMode(GameMode.Host);
+            _bgm.PlayOneShot(_buttonSe);
         });
         _joinButton.onClick.AddListener(() =>
         {
             SetGameMode(GameMode.Client);
+            _bgm.PlayOneShot(_buttonSe);
         });
 
-        _nextButton.onClick.AddListener(StartLauncherAsync);
+        _nextButton.onClick.AddListener(()=> 
+        {
+            StartLauncherAsync();
+            _bgm.PlayOneShot(_buttonSe);
+        });
 
-        _startButton.onClick.AddListener(StartButton);
+        _startButton.onClick.AddListener(() =>
+        {
+            StartButton();
+            _bgm.PlayOneShot(_buttonSe);
+        });
     }
 
     private void OnEnable()

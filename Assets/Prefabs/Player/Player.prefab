@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1882739700021305942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 583781070462805766}
@@ -130,11 +130,11 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  _speed: 2500
-  _jumpForce: 50
+  _speed: 1500
+  _jumpForce: 10
   _maxVelocity: 5
-  fallMultiplier: 13
-  lowJumpMultiplier: 10
+  fallMultiplier: 7
+  lowJumpMultiplier: 7
   _Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1163878317254207458
 MonoBehaviour:
@@ -171,8 +171,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.3, y: -0.1}
-  m_Size: {x: 3.3, y: 5.8}
+  m_Offset: {x: 0, y: -0.1}
+  m_Size: {x: 4, y: 5.8}
   m_Direction: 0
 --- !u!1 &3978263603580339914
 GameObject:
