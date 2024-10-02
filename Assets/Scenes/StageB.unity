@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4598,7 +4598,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953121974}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -6300,7 +6300,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 88
-      m_TileSpriteIndex: 6
+      m_TileSpriteIndex: 44
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -16569,8 +16569,8 @@ Tilemap:
     m_Data: {fileID: 21300002, guid: 072ed1ed67b51e24abfd669dbdc9ab7f, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: 21300158, guid: 894640e3f9d838a4499398609b715c7f, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300068, guid: 894640e3f9d838a4499398609b715c7f, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 37
     m_Data: {fileID: 21300128, guid: 894640e3f9d838a4499398609b715c7f, type: 3}
   - m_RefCount: 2
@@ -16645,8 +16645,8 @@ Tilemap:
     m_Data: {fileID: 21300012, guid: 1291332cf12f072409f17b4e2f19c4be, type: 3}
   - m_RefCount: 21
     m_Data: {fileID: 21300026, guid: f51c40299c6f2c4438629191492adad6, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300068, guid: 894640e3f9d838a4499398609b715c7f, type: 3}
   - m_RefCount: 12
     m_Data: {fileID: 21300024, guid: 072ed1ed67b51e24abfd669dbdc9ab7f, type: 3}
   - m_RefCount: 3

@@ -20,8 +20,8 @@ public class LobbyCanvas : MonoBehaviour
     public FusionEvent OnShutdownEvent;
     public FusionEvent OnPlayerDataSpawnedEvent;
 
-
     [SerializeField] private Button _homeButton;
+    [SerializeField] private Button _playButton;
     [SerializeField] private Button _lobbyToHomeButton;
     [SerializeField] private Button _singlePlayButton;
     [SerializeField] private Button _hostButton;
@@ -29,6 +29,8 @@ public class LobbyCanvas : MonoBehaviour
     [SerializeField] private Button _nextButton;
     [SerializeField] private Button _startButton;
 
+    [SerializeField] private GameObject _title;
+    [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _inputPanel;
     [SerializeField] private GameObject _LobbyPanel;
     [SerializeField] private GameObject _loadingPanel;
@@ -40,15 +42,24 @@ public class LobbyCanvas : MonoBehaviour
     [SerializeField] AudioSource _bgm;
     [SerializeField] AudioClip _buttonSe;
 
+    [SerializeField] private Animator _anim;
+
 
     void Start()
     {
         _bgm.Play();
+        _anim.Play("Title");
+
         _homeButton.onClick.AddListener(()=> 
         {
             OnClickHome();
             _bgm.PlayOneShot(_buttonSe);
          });
+        _playButton.onClick.AddListener(() => 
+        {
+            _title.SetActive(false);
+            _mainMenu.SetActive(true);
+        });
         _lobbyToHomeButton.onClick.AddListener(() =>
         {
             LeaveLobby();
@@ -173,6 +184,7 @@ public class LobbyCanvas : MonoBehaviour
     {
         _loadingPanel.SetActive(false);
         _LobbyPanel.SetActive(true);
+        _homeButton.gameObject.SetActive(false);
     }
 
 
@@ -187,7 +199,7 @@ public class LobbyCanvas : MonoBehaviour
             players += GameManager.Instance.GetPlayerData(player, runner)?.Nick + isLocal + " \n";
         }
         _lobbyPlayerText.text = players;
-        _lobbyRoomName.text = $"Room: {runner.SessionInfo.Name}";
+        _lobbyRoomName.text = $"ROOM: {runner.SessionInfo.Name}";
     }
 
 }
