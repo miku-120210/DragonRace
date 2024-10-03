@@ -54,9 +54,9 @@ public class SessionManager : MonoBehaviour
 
     private void OnDisable()
     {
-        OnPlayerLeftEvent.RegisterResponse(PlayerDisconnected);
+        OnPlayerLeftEvent.RemoveResponse(PlayerDisconnected);
         OnRunnerShutDownEvent.RemoveResponse(DisconnectedFromSession);
-        OnPlayerJoinedEvent.RegisterResponse(ValidatePlayerCount);
+        OnPlayerJoinedEvent.RemoveResponse(ValidatePlayerCount);
     }
 
     public void SetGameState(GameState state)
