@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -112,9 +110,9 @@ public class LobbyCanvas : MonoBehaviour
     }
 
 
-    public void SetGameMode(GameMode gameMode)
+    private void SetGameMode(GameMode gameMode)
     {
-        GameManager.Instance.SetGameState(GameManager.GameState.Lobby);
+        SessionManager.Instance.SetGameState(SessionManager.GameState.Lobby);
         _gameMode = gameMode;
         _singlePlayButton.gameObject.SetActive(false);
         _hostButton.gameObject.SetActive(false);
@@ -138,7 +136,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
 
-    public void StartButton()
+    private void StartButton()
     {
         FusionHelper.LocalRunner.SessionInfo.IsOpen = false;
         FusionHelper.LocalRunner.SessionInfo.IsVisible = false;
@@ -155,7 +153,7 @@ public class LobbyCanvas : MonoBehaviour
         _LobbyPanel.gameObject.SetActive(false);
     }
 
-    public void LeaveLobby()
+    private void LeaveLobby()
     {
         _ = LeaveLobbyAsync();
     }
@@ -188,7 +186,7 @@ public class LobbyCanvas : MonoBehaviour
     }
 
 
-    public void UpdateLobbyList(PlayerRef playerRef, NetworkRunner runner)
+    private void UpdateLobbyList(PlayerRef playerRef, NetworkRunner runner)
     {
         _startButton.gameObject.SetActive(runner.IsServer);
         string players = default;
@@ -196,7 +194,7 @@ public class LobbyCanvas : MonoBehaviour
         foreach (var player in runner.ActivePlayers)
         {
             isLocal = player == runner.LocalPlayer ? " (You)" : string.Empty;
-            players += GameManager.Instance.GetPlayerData(player, runner)?.Nick + isLocal + " \n";
+            players += SessionManager.Instance.GetPlayerData(player, runner)?.Nick + isLocal + " \n";
         }
         _lobbyPlayerText.text = players;
         _lobbyRoomName.text = $"ROOM: {runner.SessionInfo.Name}";

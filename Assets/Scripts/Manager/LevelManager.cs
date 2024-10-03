@@ -19,7 +19,7 @@ public class LevelManager : NetworkSceneManagerDefault
     protected override IEnumerator LoadSceneCoroutine(SceneRef sceneRef, NetworkLoadSceneParameters sceneParams)
     {
         _loadingManager.StartLoadingScreen();
-        GameManager.Instance.SetGameState(GameManager.GameState.Loading);
+        SessionManager.Instance.SetGameState(SessionManager.GameState.Loading);
         Launcher.SetConnectionStatus(FusionLauncher.ConnectionStatus.Loading, "");
         yield return new WaitForSeconds(1.0f);
         yield return base.LoadSceneCoroutine(sceneRef, sceneParams);

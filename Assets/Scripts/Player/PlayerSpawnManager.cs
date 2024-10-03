@@ -1,7 +1,6 @@
 using Fusion;
 using Fusion.Sockets;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +26,7 @@ public class PlayerSpawnManager : MonoBehaviour, INetworkRunnerCallbacks
                 if (!runner.IsServer) return;
                 var playerNum = activePlayer.PlayerId - 1;
                 NetworkObject playerObj = runner.Spawn(Player, _spawnPoints[playerNum].position, Quaternion.identity, activePlayer, InitializeObjBeforeSpawn);
-                PlayerData data = GameManager.Instance.GetPlayerData(activePlayer, runner);
+                PlayerData data = SessionManager.Instance.GetPlayerData(activePlayer, runner);
                 data.Instance = playerObj;
 
                 playerObj.GetComponent<PlayerBehaviour>().Nickname = data.Nick;

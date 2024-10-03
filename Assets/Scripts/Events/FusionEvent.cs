@@ -1,8 +1,6 @@
-using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using Fusion;
 
 namespace FusionUtilsEvents
@@ -10,25 +8,25 @@ namespace FusionUtilsEvents
     [CreateAssetMenu]
     public class FusionEvent : ScriptableObject
     {
-        public List<Action<PlayerRef, NetworkRunner>> Responses = new List<Action<PlayerRef, NetworkRunner>>();
+        private List<Action<PlayerRef, NetworkRunner>> _responses = new ();
 
         public void Raise(PlayerRef player = default, NetworkRunner runner = null)
         {
-            for (int i = 0; i < Responses.Count; i++)
+            for (int i = 0; i < _responses.Count; i++)
             {
-                Responses[i].Invoke(player, runner);
+                _responses[i].Invoke(player, runner);
             }
         }
 
         public void RegisterResponse(Action<PlayerRef, NetworkRunner> response)
         {
-            Responses.Add(response);
+            _responses.Add(response);
         }
 
         public void RemoveResponse(Action<PlayerRef, NetworkRunner> response)
         {
-            if (Responses.Contains(response))
-                Responses.Remove(response);
+            if (_responses.Contains(response))
+                _responses.Remove(response);
         }
     }
 }

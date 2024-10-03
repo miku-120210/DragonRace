@@ -54,7 +54,7 @@ public class InGameManager : NetworkBehaviour
     if (StartTimer.Expired(Runner) && !_isInitializedTimer)
     {
       Timer = TickTimer.CreateFromSeconds(Runner, _levelTime);
-      GameManager.Instance.AllowAllPlayersInputs();
+      SessionManager.Instance.AllowAllPlayersInputs();
       _isInitializedTimer = true;
       _audioSource.Play();
     }
@@ -93,7 +93,7 @@ public class InGameManager : NetworkBehaviour
     SetLevelStartValues();
     // StartLevelMusic();
     LoadingManager.Instance.FinishLoadingScreen();
-    GameManager.Instance.SetGameState(GameManager.GameState.Playing);
+    SessionManager.Instance.SetGameState(SessionManager.GameState.Playing);
   }
   private void SetLevelStartValues()
   {
@@ -140,7 +140,7 @@ public class InGameManager : NetworkBehaviour
     int i = 0;
     foreach (var player in Winners)
     {
-      PlayerData data = GameManager.Instance.GetPlayerData(player, Runner);
+      PlayerData data = SessionManager.Instance.GetPlayerData(player, Runner);
       if (data != null)
       {
         _resultScreen.SetWinner(data.Nick.ToString(), data.Instance.GetComponent<PlayerBehaviour>().PlayerColor, i);

@@ -36,7 +36,7 @@ public class PlayerData : NetworkBehaviour
 
         if (Object.HasStateAuthority)
         {
-            GameManager.Instance.SetPlayerDataObject(Object.InputAuthority, this);
+            SessionManager.Instance.SetPlayerDataObject(Object.InputAuthority, this);
         }
     }
 

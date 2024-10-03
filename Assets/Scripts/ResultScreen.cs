@@ -38,7 +38,7 @@ public class ResultScreen : MonoBehaviour
     {
         _audioSource.PlayOneShot(_buttonSe);
         _anim.Play("FadeOut");
-        GameManager.Instance.ExitGame();
+        SessionManager.Instance.ExitGame();
     }
 
     private void ResultSE()
