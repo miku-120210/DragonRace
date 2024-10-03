@@ -11,6 +11,8 @@ public class SessionManager : MonoBehaviour
 
     public FusionEvent OnPlayerLeftEvent;
     public FusionEvent OnRunnerShutDownEvent;
+    public FusionEvent OnPlayerJoinedEvent;
+    [SerializeField] private int _maxPlayers = 4;
 
     private Dictionary<PlayerRef, PlayerData> _playerData = new Dictionary<PlayerRef, PlayerData>();
 
@@ -47,12 +49,14 @@ public class SessionManager : MonoBehaviour
     {
         OnPlayerLeftEvent.RegisterResponse(PlayerDisconnected);
         OnRunnerShutDownEvent.RegisterResponse(DisconnectedFromSession);
+        OnPlayerJoinedEvent.RegisterResponse(ValidatePlayerCount);
     }
 
     private void OnDisable()
     {
         OnPlayerLeftEvent.RegisterResponse(PlayerDisconnected);
         OnRunnerShutDownEvent.RemoveResponse(DisconnectedFromSession);
+        OnPlayerJoinedEvent.RegisterResponse(ValidatePlayerCount);
     }
 
     public void SetGameState(GameState state)
@@ -107,16 +111,15 @@ public class SessionManager : MonoBehaviour
         _playerData.Remove(player);
     }
 
-    ////Called by button
-    //public void LeaveRoom()
-    //{
-    //    _ = LeaveRoomAsync();
-    //}
-
-    //private async Task LeaveRoomAsync()
-    //{
-    //    await ShutdownRunner();
-    //}
+    private void ValidatePlayerCount(PlayerRef player, NetworkRunner runner)
+    {
+        if (_playerData.Count >= _maxPlayers)
+        {
+            Debug.Log("Room is full.");
+            runner.Disconnect(player);
+            return;
+        }
+    }
 
     private async Task ShutdownRunner()
     {

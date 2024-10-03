@@ -5357,5 +5357,9 @@ PrefabInstance:
       propertyPath: SortKey
       value: 514615187
       objectReference: {fileID: 0}
+    - target: {fileID: 1464562569930905303, guid: 3fe316e374143c9409d0b2b40db51fe6, type: 3}
+      propertyPath: _maxPlayers
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fe316e374143c9409d0b2b40db51fe6, type: 3}
