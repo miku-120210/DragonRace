@@ -4,6 +4,7 @@ using TMPro;
 using Fusion;
 using FusionUtilsEvents;
 using System.Threading.Tasks;
+using UnityEngine.Serialization;
 
 
 public class LobbyCanvas : MonoBehaviour
@@ -30,7 +31,7 @@ public class LobbyCanvas : MonoBehaviour
     [SerializeField] private GameObject _title;
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _inputPanel;
-    [SerializeField] private GameObject _LobbyPanel;
+    [SerializeField] private GameObject _lobbyPanel;
     [SerializeField] private GameObject _loadingPanel;
     [SerializeField] private TMP_InputField _nickname;
     [SerializeField] private TMP_InputField _room;
@@ -150,7 +151,7 @@ public class LobbyCanvas : MonoBehaviour
         _hostButton.gameObject.SetActive(true);
         _joinButton.gameObject.SetActive(true);
         _inputPanel.gameObject.SetActive(false);
-        _LobbyPanel.gameObject.SetActive(false);
+        _lobbyPanel.gameObject.SetActive(false);
     }
 
     private void LeaveLobby()
@@ -181,7 +182,7 @@ public class LobbyCanvas : MonoBehaviour
     private void ShowLobbyCanvas(PlayerRef player, NetworkRunner runner)
     {
         _loadingPanel.SetActive(false);
-        _LobbyPanel.SetActive(true);
+        _lobbyPanel.SetActive(true);
         _homeButton.gameObject.SetActive(false);
     }
 

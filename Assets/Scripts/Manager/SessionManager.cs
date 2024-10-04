@@ -14,7 +14,7 @@ public class SessionManager : MonoBehaviour
     public FusionEvent OnPlayerJoinedEvent;
     [SerializeField] private int _maxPlayers = 4;
 
-    private Dictionary<PlayerRef, PlayerData> _playerData = new Dictionary<PlayerRef, PlayerData>();
+    private Dictionary<PlayerRef, PlayerData> _playerData = new ();
 
 
     public enum GameState
@@ -24,7 +24,7 @@ public class SessionManager : MonoBehaviour
         Loading
     }
 
-    public GameState State { get; private set; }
+    private GameState State { get; set; }
 
     [Space]
 
