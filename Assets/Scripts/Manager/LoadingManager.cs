@@ -34,12 +34,6 @@ public class LoadingManager : MonoBehaviour
         _lastLevelIndex = 0;
     }
 
-    public void LoadNextLevel(NetworkRunner runner)
-    {
-        _lastLevelIndex = _lastLevelIndex + 1 >= SceneManager.sceneCountInBuildSettings ? 1 : _lastLevelIndex + 1;
-        string scenePath = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(_lastLevelIndex));
-        runner.LoadScene(scenePath);
-    }
 
     public void LoadRandomStage(NetworkRunner runner)
     {

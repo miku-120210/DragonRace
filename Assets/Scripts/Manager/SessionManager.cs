@@ -12,7 +12,7 @@ public class SessionManager : MonoBehaviour
     public FusionEvent OnPlayerLeftEvent;
     public FusionEvent OnRunnerShutDownEvent;
     public FusionEvent OnPlayerJoinedEvent;
-    [SerializeField] private int _maxPlayers = 4;
+    [SerializeField] private int _maxPlayers = 1;
 
     private Dictionary<PlayerRef, PlayerData> _playerData = new ();
 
@@ -111,11 +111,22 @@ public class SessionManager : MonoBehaviour
         _playerData.Remove(player);
     }
 
+    private void ShowRoomFullWarning(PlayerRef player)
+    {
+        LobbyCanvas.Instance.ShowRoomFullMessage();
+    }
+
     private void ValidatePlayerCount(PlayerRef player, NetworkRunner runner)
     {
-        if (_playerData.Count >= _maxPlayers)
+        if (_playerData.Count > _maxPlayers)
         {
             Debug.Log("Room is full.");
+            if (FusionHelper.LocalRunner.LocalPlayer == player)
+            {
+                ShowRoomFullWarning(player);
+                Debug.Log("Full warning");
+            }
+            if (runner.LocalPlayer == null) Debug.Log("player is null");
             runner.Disconnect(player);
             return;
         }

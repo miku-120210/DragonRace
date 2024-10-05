@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 
 public class LobbyCanvas : MonoBehaviour
 {
+    public static LobbyCanvas Instance;
     private GameMode _gameMode;
 
     public string Nickname = "Player";
@@ -33,6 +34,7 @@ public class LobbyCanvas : MonoBehaviour
     [SerializeField] private GameObject _inputPanel;
     [SerializeField] private GameObject _lobbyPanel;
     [SerializeField] private GameObject _loadingPanel;
+    [SerializeField] private GameObject _fullPanel;
     [SerializeField] private TMP_InputField _nickname;
     [SerializeField] private TMP_InputField _room;
     [SerializeField] private TextMeshProUGUI _lobbyPlayerText;
@@ -43,6 +45,17 @@ public class LobbyCanvas : MonoBehaviour
 
     [SerializeField] private Animator _anim;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -171,8 +184,6 @@ public class LobbyCanvas : MonoBehaviour
         await FusionHelper.LocalRunner?.Shutdown();
     }
 
-
-
     private void ResetCanvas(PlayerRef player, NetworkRunner runner)
     {
         OnClickHome();
@@ -201,4 +212,8 @@ public class LobbyCanvas : MonoBehaviour
         _lobbyRoomName.text = $"ROOM: {runner.SessionInfo.Name}";
     }
 
+    public void ShowRoomFullMessage()
+    {
+        _fullPanel.SetActive(true);
+    }
 }
