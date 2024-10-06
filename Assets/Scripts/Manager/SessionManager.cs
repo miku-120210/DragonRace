@@ -49,14 +49,14 @@ public class SessionManager : MonoBehaviour
     {
         OnPlayerLeftEvent.RegisterResponse(PlayerDisconnected);
         OnRunnerShutDownEvent.RegisterResponse(DisconnectedFromSession);
-        OnPlayerJoinedEvent.RegisterResponse(ValidatePlayerCount);
+        //OnPlayerJoinedEvent.RegisterResponse(ValidatePlayerCount);
     }
 
     private void OnDisable()
     {
         OnPlayerLeftEvent.RemoveResponse(PlayerDisconnected);
         OnRunnerShutDownEvent.RemoveResponse(DisconnectedFromSession);
-        OnPlayerJoinedEvent.RemoveResponse(ValidatePlayerCount);
+        //OnPlayerJoinedEvent.RemoveResponse(ValidatePlayerCount);
     }
 
     public void SetGameState(GameState state)
@@ -111,24 +111,26 @@ public class SessionManager : MonoBehaviour
         _playerData.Remove(player);
     }
 
-    private void ShowRoomFullWarning(PlayerRef player)
-    {
-        LobbyCanvas.Instance.ShowRoomFullMessage();
-    }
+    //private void aaa(PlayerRef player, NetworkRunner runner)
+    //{
+    //    _ = ValidatePlayerCount(player, runner);
+    //}
 
     private void ValidatePlayerCount(PlayerRef player, NetworkRunner runner)
     {
         if (_playerData.Count > _maxPlayers)
         {
-            Debug.Log("Room is full.");
-            if (FusionHelper.LocalRunner.LocalPlayer == player)
-            {
-                ShowRoomFullWarning(player);
-                Debug.Log("Full warning");
-            }
-            if (runner.LocalPlayer == null) Debug.Log("player is null");
-            runner.Disconnect(player);
-            return;
+            LobbyCanvas.Instance.LeaveLobby();
+            //Debug.Log("Room is full.");
+            //if (FusionHelper.LocalRunner.IsServer)
+            //{
+            //    foreach (var a in FusionHelper.LocalRunner.ActivePlayers)
+            //    {
+            //        if (a != FusionHelper.LocalRunner.LocalPlayer)
+            //            FusionHelper.LocalRunner.Disconnect(a);
+            //    }
+            //}
+            //await FusionHelper.LocalRunner?.Shutdown();
         }
     }
 

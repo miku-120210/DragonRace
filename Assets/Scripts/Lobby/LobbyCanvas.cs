@@ -5,12 +5,14 @@ using Fusion;
 using FusionUtilsEvents;
 using System.Threading.Tasks;
 using UnityEngine.Serialization;
-
+using System.Linq;
 
 public class LobbyCanvas : MonoBehaviour
 {
     public static LobbyCanvas Instance;
     private GameMode _gameMode;
+
+    [SerializeField] private int _maxPlayers = 2;
 
     public string Nickname = "Player";
     public GameLauncher Launcher;
@@ -28,6 +30,7 @@ public class LobbyCanvas : MonoBehaviour
     [SerializeField] private Button _joinButton;
     [SerializeField] private Button _nextButton;
     [SerializeField] private Button _startButton;
+    [SerializeField] private Button _backButton;
 
     [SerializeField] private GameObject _title;
     [SerializeField] private GameObject _mainMenu;
@@ -105,6 +108,11 @@ public class LobbyCanvas : MonoBehaviour
             StartButton();
             _bgm.PlayOneShot(_buttonSe);
         });
+        _backButton.onClick.AddListener(() =>
+        {
+            OnClickHome();
+            _bgm.PlayOneShot(_buttonSe);
+        });
     }
 
     private void OnEnable()
@@ -113,6 +121,7 @@ public class LobbyCanvas : MonoBehaviour
         OnShutdownEvent.RegisterResponse(ResetCanvas);
         OnPlayerLeftEvent.RegisterResponse(UpdateLobbyList);
         OnPlayerDataSpawnedEvent.RegisterResponse(UpdateLobbyList);
+        OnPlayerDataSpawnedEvent.RegisterResponse(ValidatePlayerCount);
     }
 
     private void OnDisable()
@@ -167,7 +176,29 @@ public class LobbyCanvas : MonoBehaviour
         _lobbyPanel.gameObject.SetActive(false);
     }
 
-    private void LeaveLobby()
+    private void ValidatePlayerCount(PlayerRef player, NetworkRunner runner)
+    {
+        var players = runner.ActivePlayers;
+
+        if (players == null) return;
+
+        int playerCount = players.Count();
+        Debug.Log($"現在のプレイヤー人数: {playerCount}");
+
+        if (playerCount > _maxPlayers)
+        {
+            if (runner.LocalPlayer == player)
+            {
+                FusionHelper.LocalRunner.Disconnect(player);
+                Debug.Log("player ID" + player.PlayerId);
+                ShowRoomFullMessage();
+                //　追い出す
+            }
+            UpdateLobbyList(player, runner);
+        }
+    }
+
+    public void LeaveLobby()
     {
         _ = LeaveLobbyAsync();
     }
@@ -215,5 +246,6 @@ public class LobbyCanvas : MonoBehaviour
     public void ShowRoomFullMessage()
     {
         _fullPanel.SetActive(true);
+        _lobbyPanel.SetActive(false);
     }
 }
