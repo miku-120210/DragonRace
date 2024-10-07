@@ -14,7 +14,7 @@ public class LoadingManager : MonoBehaviour
 
     [SerializeField] private Animator _loadingScreenAnimator;
 
-    private int _lastLevelIndex;
+    public int _lastLevelIndex;
 
     void Awake()
     {
@@ -47,13 +47,15 @@ public class LoadingManager : MonoBehaviour
         runner.LoadScene(scenePath);
     }
 
-    public void StartLoadingScreen()
+    public void StartLoadingScreen(int sceneIndex)
     {
-        //_loadingScreenAnimator.Play("In");
+        var anim = sceneIndex == 1 ? "StageA" : sceneIndex == 2 ? "StageB" : "StageC";
+        _loadingScreenAnimator.Play(anim);
     }
 
-    public void FinishLoadingScreen()
+    public void FinishLoadingScreen(int sceneIndex)
     {
-        //_loadingScreenAnimator.Play("Out");
+        var anim = sceneIndex == 1 ? "StageAOut" : sceneIndex == 2 ? "StageBOut" : "StageCOut";
+        _loadingScreenAnimator.Play(anim);
     }
 }

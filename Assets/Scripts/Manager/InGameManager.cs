@@ -92,7 +92,7 @@ public class InGameManager : NetworkBehaviour
   {
     SetLevelStartValues();
     // StartLevelMusic();
-    LoadingManager.Instance.FinishLoadingScreen();
+    //LoadingManager.Instance.FinishLoadingScreen();
     SessionManager.Instance.SetGameState(SessionManager.GameState.Playing);
   }
   private void SetLevelStartValues()

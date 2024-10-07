@@ -164,6 +164,7 @@ public class LobbyCanvas : MonoBehaviour
         FusionHelper.LocalRunner.SessionInfo.IsOpen = false;
         FusionHelper.LocalRunner.SessionInfo.IsVisible = false;
         LoadingManager.Instance.LoadRandomStage(FusionHelper.LocalRunner);
+        _bgm.Stop();
     }
 
 

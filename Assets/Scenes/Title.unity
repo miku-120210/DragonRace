@@ -5762,5 +5762,17 @@ PrefabInstance:
       propertyPath: OnPlayerJoinedEvent
       value: 
       objectReference: {fileID: 11400000, guid: 372144a5817328544a56c52917082152, type: 2}
+    - target: {fileID: 2765769786124222133, guid: 3fe316e374143c9409d0b2b40db51fe6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5196285621608805982, guid: 3fe316e374143c9409d0b2b40db51fe6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5196285621608805982, guid: 3fe316e374143c9409d0b2b40db51fe6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fe316e374143c9409d0b2b40db51fe6, type: 3}
