@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -16,15 +17,20 @@ public class LobbyCanvas : MonoBehaviour
 
     public string Nickname = "Player";
     public GameLauncher Launcher;
-
+    
+    [Space]
+    [Header("Fusion Event")]
     public FusionEvent OnPlayerJoinedEvent;
     public FusionEvent OnPlayerLeftEvent;
     public FusionEvent OnShutdownEvent;
     public FusionEvent OnPlayerDataSpawnedEvent;
 
+    [Space] 
+    [Header("Button")]
     [SerializeField] private Button _homeButton;
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _lobbyToHomeButton;
+    [SerializeField] private Button _randomButton;
     [SerializeField] private Button _singlePlayButton;
     [SerializeField] private Button _hostButton;
     [SerializeField] private Button _joinButton;
@@ -32,21 +38,30 @@ public class LobbyCanvas : MonoBehaviour
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _backButton;
 
+    [Space]
+    [Header("Game Object")]
     [SerializeField] private GameObject _title;
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _inputPanel;
     [SerializeField] private GameObject _lobbyPanel;
     [SerializeField] private GameObject _loadingPanel;
     [SerializeField] private GameObject _fullPanel;
+    
+    [Space]
+    [Header("Text")]
     [SerializeField] private TMP_InputField _nickname;
     [SerializeField] private TMP_InputField _room;
     [SerializeField] private TextMeshProUGUI _lobbyPlayerText;
     [SerializeField] private TextMeshProUGUI _lobbyRoomName;
 
+    [Space]
+    [Header("Audio & Animation")]
     [SerializeField] AudioSource _bgm;
     [SerializeField] AudioClip _buttonSe;
 
     [SerializeField] private Animator _anim;
+
+    private string _placeHolderStr = "ÂÖ•ÂäõÂøÖÈ†à";
 
     private void Awake()
     {
@@ -74,13 +89,17 @@ public class LobbyCanvas : MonoBehaviour
         {
             _title.SetActive(false);
             _mainMenu.SetActive(true);
+            _bgm.PlayOneShot(_buttonSe);
         });
         _lobbyToHomeButton.onClick.AddListener(() =>
         {
             LeaveLobby();
             _bgm.PlayOneShot(_buttonSe);
         });
-
+        _randomButton.onClick.AddListener(() =>
+        {
+            _bgm.PlayOneShot(_buttonSe);
+        });
         _singlePlayButton.onClick.AddListener(() =>
         {
             SetGameMode(GameMode.Single);
@@ -99,6 +118,12 @@ public class LobbyCanvas : MonoBehaviour
 
         _nextButton.onClick.AddListener(()=> 
         {
+            if (String.IsNullOrWhiteSpace(_room.text))
+            {
+                _room.placeholder.color = Color.red;
+                _room.placeholder.GetComponent<TextMeshProUGUI>().text = _placeHolderStr;
+                return;
+            }
             StartLauncherAsync();
             _bgm.PlayOneShot(_buttonSe);
         });
@@ -137,9 +162,7 @@ public class LobbyCanvas : MonoBehaviour
     {
         SessionManager.Instance.SetGameState(SessionManager.GameState.Lobby);
         _gameMode = gameMode;
-        _singlePlayButton.gameObject.SetActive(false);
-        _hostButton.gameObject.SetActive(false);
-        _joinButton.gameObject.SetActive(false);
+        _mainMenu.SetActive(false);
         _inputPanel.gameObject.SetActive(true);
     }
 
@@ -170,9 +193,8 @@ public class LobbyCanvas : MonoBehaviour
 
     private void OnClickHome()
     {
-        _singlePlayButton.gameObject.SetActive(true);
-        _hostButton.gameObject.SetActive(true);
-        _joinButton.gameObject.SetActive(true);
+        _title.SetActive(true);
+        _mainMenu.SetActive(false);
         _inputPanel.gameObject.SetActive(false);
         _lobbyPanel.gameObject.SetActive(false);
     }
@@ -184,7 +206,7 @@ public class LobbyCanvas : MonoBehaviour
         if (players == null) return;
 
         int playerCount = players.Count();
-        Debug.Log($"åªç›ÇÃÉvÉåÉCÉÑÅ[êlêî: {playerCount}");
+        Debug.Log($"ÔøΩÔøΩÔøΩ›ÇÃÉvÔøΩÔøΩÔøΩCÔøΩÔøΩÔøΩ[ÔøΩlÔøΩÔøΩ: {playerCount}");
 
         if (playerCount > _maxPlayers)
         {
@@ -193,7 +215,7 @@ public class LobbyCanvas : MonoBehaviour
                 FusionHelper.LocalRunner.Disconnect(player);
                 Debug.Log("player ID" + player.PlayerId);
                 ShowRoomFullMessage();
-                //Å@í«Ç¢èoÇ∑
+                //ÔøΩ@ÔøΩ«ÇÔøΩÔøΩoÔøΩÔøΩ
             }
             UpdateLobbyList(player, runner);
         }
