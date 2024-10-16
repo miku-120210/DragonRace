@@ -6,11 +6,13 @@ public class GameLauncher : MonoBehaviour
 {
     public GameObject LauncherPrefab;
 
-    public async Task Launch(GameMode _gameMode, string _room)
+    public async Task Launch(GameMode _gameMode, string _room, FusionLauncher.RoomStatus roomStatus)
     {
         FusionLauncher launcher = FindObjectOfType<FusionLauncher>();
         if (launcher == null)
             launcher = Instantiate(LauncherPrefab).GetComponent<FusionLauncher>();
+        
+        launcher.SetRoomStatus(roomStatus, "");
 
         LevelManager lm = FindObjectOfType<LevelManager>();
         lm.Launcher = launcher;

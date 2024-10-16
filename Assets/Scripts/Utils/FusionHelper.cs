@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
@@ -43,6 +42,7 @@ public class FusionHelper : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
+        Debug.Log("Debug Shutdown Event");
         OnShutdownEvent?.Raise(runner: runner);
     }
     public void OnConnectedToServer(NetworkRunner runner) { }

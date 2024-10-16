@@ -95,26 +95,25 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
         }
 
         RaycastHit2D hitRight = Runner.GetPhysicsScene2D().CircleCast(
-            transform.position + Vector3.right * (_collider.bounds.extents.x), // ‰~‚Ì’†S
-            0.3f, // ‰~‚Ì”¼Œa
-            Vector2.zero, // ƒLƒƒƒXƒg•ûŒüi¡‰ñ‚ÍˆÚ“®‚³‚¹‚È‚¢‚Ì‚Å Vector2.zeroj
-            0f, // ƒLƒƒƒXƒg‹——£i‚»‚Ìê‚Å‚Ì”»’è‚È‚Ì‚Å0j
-            _groundLayer // ‘ÎÛ‚ÌƒŒƒCƒ„[
+            transform.position + Vector3.right * (_collider.bounds.extents.x), // ï¿½~ï¿½Ì’ï¿½ï¿½S
+            0.3f, // ï¿½~ï¿½Ì”ï¿½ï¿½a
+            Vector2.zero, // ï¿½Lï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ÍˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½Ì‚ï¿½ Vector2.zeroï¿½j
+            0f, // ï¿½Lï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½Ìï¿½Å‚Ì”ï¿½ï¿½ï¿½È‚Ì‚ï¿½0ï¿½j
+            _groundLayer // ï¿½ÎÛ‚Ìƒï¿½ï¿½Cï¿½ï¿½ï¿½[
             );
 
-        if (hitRight.collider != null) // ‰E•Ç‚ÉÚG‚µ‚Ä‚¢‚é‚©Šm”F
+        if (hitRight.collider != null) // ï¿½Eï¿½Ç‚ÉÚGï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½mï¿½F
         {
             _wallSliding = true;
-            _wallSlidingNormal = Vector2.left; // ‰E•Ç‚ÉÚG‚µ‚Ä‚¢‚é‚Ì‚ÅA–@ü‚Í¶Œü‚«
+            _wallSlidingNormal = Vector2.left; // ï¿½Eï¿½Ç‚ÉÚGï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ì‚ÅAï¿½@ï¿½ï¿½ï¿½Íï¿½ï¿½ï¿½ï¿½ï¿½
 #if UNITY_EDITOR
-            Debug.Log("‰E•ÇÚG‚µ‚½‚æ[");
 
-            // ƒqƒbƒg‚µ‚½êŠ‚ğ‰Â‹‰»i‰~‚Ì’†S‚©‚çƒqƒbƒgˆÊ’u‚Ü‚Åü‚ğˆø‚­j
+            // ï¿½qï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½êŠï¿½ï¿½ï¿½Âï¿½ï¿½ï¿½ï¿½iï¿½~ï¿½Ì’ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½qï¿½bï¿½gï¿½Ê’uï¿½Ü‚Åï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j
             Debug.DrawLine(
-                transform.position + Vector3.right * (_collider.bounds.extents.x), // ƒLƒƒƒXƒg‚µ‚½‰~‚Ì’†S
-                hitRight.point, // ƒqƒbƒg‚µ‚½êŠ
-                Color.red, // ü‚ÌF
-                1.0f // ü‚ª•\¦‚³‚ê‚éŠÔi•bj
+                transform.position + Vector3.right * (_collider.bounds.extents.x), // ï¿½Lï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½Ì’ï¿½ï¿½S
+                hitRight.point, // ï¿½qï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½êŠ
+                Color.red, // ï¿½ï¿½ï¿½ÌF
+                1.0f // ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½éï¿½Ôiï¿½bï¿½j
             );
 #endif
             return;
@@ -135,8 +134,7 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
                 _wallSlidingNormal = Vector2.right;
 
 #if UNITY_EDITOR
-                Debug.Log("¶•ÇÚG‚µ‚½‚æ[");
-                // ƒqƒbƒg‚µ‚½êŠ‚ğ‰Â‹‰»i‰~‚Ì’†S‚©‚çƒqƒbƒgˆÊ’u‚Ü‚Åü‚ğˆø‚­j
+                // ï¿½qï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½êŠï¿½ï¿½ï¿½Âï¿½ï¿½ï¿½ï¿½iï¿½~ï¿½Ì’ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½qï¿½bï¿½gï¿½Ê’uï¿½Ü‚Åï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j
                 Debug.DrawLine(
                     transform.position - Vector3.right * (_collider.bounds.extents.x),
                     hitLeft.point,
@@ -243,7 +241,6 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
                 {
                     _rb.Rigidbody.velocity *= Vector2.zero; //Reset y and x Velocity
                     _rb.Rigidbody.AddForce((Vector2.up + (_wallSlidingNormal)) * _jumpForce, ForceMode2D.Impulse);
-                    //Debug.Log(_wallSlidingNormal);
                     CoyoteTimeCD = true;
                     if (Runner.IsForward && Object.HasInputAuthority)
                     {

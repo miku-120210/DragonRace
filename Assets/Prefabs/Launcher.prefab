@@ -63,3 +63,4 @@ MonoBehaviour:
   OnPlayerLeftEvent: {fileID: 11400000, guid: b31a37b7031ed3d4b9749ff5de30a950, type: 2}
   OnShutdownEvent: {fileID: 11400000, guid: 9ac439ef5c775ba408c1f37826c4c86f, type: 2}
   OnDisconnectEvent: {fileID: 11400000, guid: bb6e47b65a0fc2446bcbbaa577efc872, type: 2}
+  OnSessionListUpdatedEvent: {fileID: 11400000, guid: 39d104ad89dd84d6b80d600ac51f6a9c, type: 2}

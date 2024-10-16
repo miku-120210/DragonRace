@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Fusion;
-using System;
-using Fusion.Sockets;
 
 public class FusionLauncher : MonoBehaviour
 {
+    private const int MaxPlayers = 1;
     private NetworkRunner _runner;
     private ConnectionStatus _status;
+    private RoomStatus _roomStatus;
 
     public enum ConnectionStatus
     {
@@ -19,6 +16,12 @@ public class FusionLauncher : MonoBehaviour
         Connected,
         Loading,
         Loaded
+    }
+    
+    public enum RoomStatus
+    {
+        Random,
+        Private
     }
 
     public async void Launch(GameMode mode, string room,
@@ -33,16 +36,25 @@ public class FusionLauncher : MonoBehaviour
         _runner.name = name;
         _runner.ProvideInput = mode != GameMode.Server;
 
-        await _runner.StartGame(new StartGameArgs()
+        var roomIdentify = _roomStatus + "_" + room;
+        Debug.Log("RoomName :" + room);
+        
+        var startGameResult = await _runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
             SessionName = room,
-            SceneManager = sceneLoader
+            SceneManager = sceneLoader,
+            PlayerCount = MaxPlayers
         });
     }
 
     public void SetConnectionStatus(ConnectionStatus status, string message)
     {
         _status = status;
+    }
+
+    public void SetRoomStatus(RoomStatus roomStatus, string message)
+    {
+        _roomStatus = roomStatus;
     }
 }
