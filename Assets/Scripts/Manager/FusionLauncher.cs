@@ -3,7 +3,7 @@ using Fusion;
 
 public class FusionLauncher : MonoBehaviour
 {
-    private const int MaxPlayers = 1;
+    private const int MaxPlayers = 4;
     private NetworkRunner _runner;
     private ConnectionStatus _status;
     private RoomStatus _roomStatus;
