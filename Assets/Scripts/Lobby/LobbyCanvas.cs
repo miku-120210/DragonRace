@@ -33,7 +33,6 @@ public class LobbyCanvas : MonoBehaviour
     [SerializeField] private Button _hostButton;
     [SerializeField] private Button _joinButton;
     [SerializeField] private Button _nextButton;
-    [SerializeField] private Button _randomNextButton;
     [SerializeField] private Button _startButton;
 
     [Space]
@@ -41,7 +40,6 @@ public class LobbyCanvas : MonoBehaviour
     [SerializeField] private GameObject _title;
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _inputPanel;
-    [SerializeField] private GameObject _inputRandomPanel;
     [SerializeField] private GameObject _lobbyPanel;
     [SerializeField] private GameObject _loadingPanel;
     [SerializeField] private GameObject _fullPanel;
@@ -51,7 +49,6 @@ public class LobbyCanvas : MonoBehaviour
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI _countdown;
     [SerializeField] private TMP_InputField _privateNickname;
-    [SerializeField] private TMP_InputField _randomNickname;
     [SerializeField] private TMP_InputField _room;
     [SerializeField] private TextMeshProUGUI _lobbyPlayerText;
     [SerializeField] private TextMeshProUGUI _lobbyRoomName;
@@ -81,7 +78,8 @@ public class LobbyCanvas : MonoBehaviour
     {
         _bgm.Play();
         _anim.Play("Title");
-
+        _room.onValueChanged.AddListener(OnInputFieldChanged);
+        
         _homeButton.onClick.AddListener(()=> 
         {
             OnClickHome();
@@ -111,28 +109,17 @@ public class LobbyCanvas : MonoBehaviour
         });
         _hostButton.onClick.AddListener(() =>
         {
+            _nextButton.interactable = false;
             SetGameMode(GameMode.Host);
             _bgm.PlayOneShot(_buttonSe);
         });
         _joinButton.onClick.AddListener(() =>
         {
+            _nextButton.interactable = false;
             SetGameMode(GameMode.Client);
             _bgm.PlayOneShot(_buttonSe);
         });
-
-        _nextButton.onClick.AddListener(()=> 
-        {
-            StartLauncherAsync(FusionLauncher.RoomStatus.Private);
-            _bgm.PlayOneShot(_buttonSe);
-        });
         
-        _randomNextButton.onClick.AddListener(() =>
-        {
-            StartLauncherAsync(FusionLauncher.RoomStatus.Random);
-            ChangeLobbyLayout();
-            _bgm.PlayOneShot(_buttonSe);
-        });
-
         _startButton.onClick.AddListener(() =>
         {
             StartButton();
@@ -156,24 +143,37 @@ public class LobbyCanvas : MonoBehaviour
         OnPlayerDataSpawnedEvent.RemoveResponse(UpdateLobbyList);
     }
 
-
+    private void OnInputFieldChanged(string text)
+    {
+        _nextButton.interactable = !string.IsNullOrEmpty(text);
+    }
+    
     private void SetGameMode(GameMode gameMode)
     {
+        var roomStatus = gameMode == GameMode.AutoHostOrClient
+            ? FusionLauncher.RoomStatus.Random
+            : FusionLauncher.RoomStatus.Private;
+        _nextButton.onClick.AddListener(()=> 
+        {
+            StartLauncherAsync(roomStatus);
+            _bgm.PlayOneShot(_buttonSe);
+        });
+
         SessionManager.Instance.SetGameState(SessionManager.GameState.Lobby);
         _gameMode = gameMode;
         _mainMenu.SetActive(false);
-        if (gameMode == GameMode.AutoHostOrClient)
-        {
-            _inputRandomPanel.SetActive(true);
-            return;
-        }
         _inputPanel.gameObject.SetActive(true);
+        if (gameMode == GameMode.AutoHostOrClient || gameMode == GameMode.Single)
+        {
+            _room.gameObject.SetActive(false);
+            ChangeLobbyLayout();
+        }
     }
 
     private async void StartLauncherAsync(FusionLauncher.RoomStatus  roomStatus)
     {
         Launcher = FindObjectOfType<GameLauncher>();
-        Nickname = roomStatus == FusionLauncher.RoomStatus.Private ? _privateNickname.text : _randomNickname.text;
+        Nickname = _privateNickname.text;
         PlayerPrefs.SetString("Nickname", Nickname);
         PlayerPrefs.Save();
 
@@ -200,8 +200,9 @@ public class LobbyCanvas : MonoBehaviour
         _title.SetActive(true);
         _homeButton.gameObject.SetActive(true);
         _mainMenu.SetActive(false);
-        _inputRandomPanel.SetActive(false);
+        _room.gameObject.SetActive(true);
         _inputPanel.SetActive(false);
+        _nextButton.interactable = true;
         _room.text = "";
         _lobbyPanel.SetActive(false);
         _fullPanel.SetActive(false);
@@ -241,13 +242,12 @@ public class LobbyCanvas : MonoBehaviour
     {
         foreach (var obj in _roomNameObjects) obj.SetActive(false);
         _lobbyPlayerText.fontSize = 30;
-        var rectTransform = _lobbyPlayerText.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 0);
     }
 
     private void UpdateLobbyList(PlayerRef playerRef, NetworkRunner runner)
     {
-        _startButton.gameObject.SetActive(runner.IsServer && runner.SessionInfo.MaxPlayers == runner.ActivePlayers.Count());
+        var active = _gameMode == GameMode.Single || (runner.IsServer && runner.SessionInfo.MaxPlayers == runner.ActivePlayers.Count());
+        _startButton.gameObject.SetActive(active);
         string players = default;
         string isLocal;
         foreach (var player in runner.ActivePlayers)
