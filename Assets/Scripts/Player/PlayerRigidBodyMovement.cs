@@ -232,20 +232,12 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
                     _rb.Rigidbody.velocity *= Vector2.right; //Reset y Velocity
                     _rb.Rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
                     CoyoteTimeCD = true;
-                    if (Runner.IsForward && Object.HasInputAuthority)
-                    {
-                        RPC_PlayJumpEffects((Vector2)transform.position - Vector2.up * .5f);
-                    }
                 }
                 else if (_wallSliding)
                 {
                     _rb.Rigidbody.velocity *= Vector2.zero; //Reset y and x Velocity
                     _rb.Rigidbody.AddForce((Vector2.up + (_wallSlidingNormal)) * _jumpForce, ForceMode2D.Impulse);
                     CoyoteTimeCD = true;
-                    if (Runner.IsForward && Object.HasInputAuthority)
-                    {
-                        RPC_PlayJumpEffects((Vector2)transform.position - _wallSlidingNormal * .5f);
-                    }
                 }
             }
         }
@@ -260,24 +252,7 @@ public class PlayerRigidBodyMovement : NetworkBehaviour
     {
         return (Runner.SimulationTime <= TimeLeftGrounded + CoyoteTimeThreshold);
     }
-
-    [Rpc(sources: RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsHostPlayer)]
-    private void RPC_PlayJumpEffects(Vector2 particlePos)
-    {
-        PlayJumpSound();
-        PlayJumpParticle(particlePos);
-    }
-
-    private void PlayJumpSound()
-    {
-        //_sfxChannel.CallSoundEvent(_jumpSound, Object.HasInputAuthority ? null : _playerSource);
-    }
-
-    private void PlayJumpParticle(Vector2 pos)
-    {
-        //_particleManager.Get(ParticleManager.ParticleID.Jump).transform.position = pos;
-    }
-
+    
     /// <summary>
     /// Increases gravity force on the player based on input and current fall progress.
     /// </summary>

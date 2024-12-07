@@ -2,21 +2,28 @@ using UnityEngine;
 using Fusion;
 using System.Linq;
 using FusionUtilsEvents;
+using DG.Tweening;
 using TMPro;
 
 public class InGameManager : NetworkBehaviour
 {
+  private const float StartTime = 4;
   public FusionEvent OnPlayerDisconnectEvent;
   [SerializeField] private float _levelTime = 10f;
+  [SerializeField] private float _previewTime = 3f;
+  [SerializeField] private float _endPos;
 
+  [Networked] private TickTimer PreviewTimer { get; set; }
   [Networked] private TickTimer StartTimer { get; set; }
   [Networked] private TickTimer Timer { get; set; }
 
   [SerializeField] private TextMeshProUGUI _startTimer;
   [SerializeField] private TextMeshProUGUI _timer;
-  [SerializeField]
-  private int _playersAlreadyFinish = 0;
-  private bool _isInitializedTimer = false;
+  [SerializeField] private Camera _playerCamera;
+  [SerializeField] private Camera _previewCamera;
+  [SerializeField] private int _playersAlreadyFinish = 0;
+  private bool _isPreviewActive = true;
+  private bool _isStartActive = false;
 
   [Networked, Capacity(3)]
   private NetworkArray<PlayerRef> _winners => default;
@@ -30,8 +37,8 @@ public class InGameManager : NetworkBehaviour
   public override void Spawned()
   {
     FindObjectOfType<PlayerSpawnManager>().SpawnPlayer(Runner);
-    StartLevel();
-    _audioSource.PlayOneShot(_startSe);
+    StartStagePreview();
+    _playerCamera.enabled = false;
   }
   void OnEnable()
   {
@@ -51,14 +58,21 @@ public class InGameManager : NetworkBehaviour
   
   public override void FixedUpdateNetwork()
   {
-    if (StartTimer.Expired(Runner) && !_isInitializedTimer)
+    // プレビュー終了時
+    if (PreviewTimer.Expired(Runner) && _isPreviewActive)
+    {
+      _isPreviewActive = false;
+      RPC_StartLevel();
+    }
+    // スタートカウントダウン終了時
+    if (StartTimer.Expired(Runner) && _isStartActive)
     {
       Timer = TickTimer.CreateFromSeconds(Runner, _levelTime);
       SessionManager.Instance.AllowAllPlayersInputs();
-      _isInitializedTimer = true;
-      _audioSource.Play();
+      _isStartActive = false;
+      RPC_PlayBGM();
     }
-
+    // ゲームカウントダウン
     if (Timer.IsRunning)
     {
       if (Object.HasStateAuthority && Timer.Expired(Runner) && (_playersAlreadyFinish < 3 || _playersAlreadyFinish < Runner.ActivePlayers.Count()))
@@ -87,18 +101,34 @@ public class InGameManager : NetworkBehaviour
         }
     }
 
+    private void StartStagePreview()
+    {
+      PreviewTimer = TickTimer.CreateFromSeconds(Runner, _previewTime);
+      _previewCamera.gameObject.transform.DOLocalMoveY(_endPos,_previewTime - 1f).SetDelay(0.5f);
+    }
 
-    public void StartLevel()
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    private void RPC_StartLevel()
   {
+    _audioSource.PlayOneShot(_startSe);    
+    _previewCamera.enabled = false;
+    _playerCamera.enabled = true;
+    _isStartActive = true;
     SetLevelStartValues();
-    // StartLevelMusic();
-    //LoadingManager.Instance.FinishLoadingScreen();
+    if(Runner.IsClient) return;
     SessionManager.Instance.SetGameState(SessionManager.GameState.Playing);
   }
-  private void SetLevelStartValues()
+
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    private void RPC_PlayBGM()
+    {
+      _audioSource.Play();
+    }
+
+    private void SetLevelStartValues()
   {
     _playersAlreadyFinish = 0;
-    StartTimer = TickTimer.CreateFromSeconds(Runner, 4);
+    StartTimer = TickTimer.CreateFromSeconds(Runner, StartTime);
     _startTimer.gameObject.SetActive(true);
     for (int i = 0; i < 3; i++)
     {
@@ -130,9 +160,7 @@ public class InGameManager : NetworkBehaviour
             RPC_FinishLevel();
         }
     }
-
-
-
+    
     [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
   private void RPC_FinishLevel()
   {

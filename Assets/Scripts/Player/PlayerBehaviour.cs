@@ -1,9 +1,6 @@
 using Fusion;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Fusion.NetworkBehaviour;
-using static UnityEngine.EventSystems.PointerEventData;
+using UnityEngine.UI;
 
 public class PlayerBehaviour : NetworkBehaviour
 {
@@ -30,15 +27,8 @@ public class PlayerBehaviour : NetworkBehaviour
     [Networked]
     public NetworkBool InputsAllowed { get; set; }
 
-
-    //[SerializeField] private ParticleManager _particleManager;
-
-    //[Space()]
-    //[Header("Sound")]
-    //[SerializeField] private SoundChannelSO _sfxChannel;
-    //[SerializeField] private SoundSO _deathSound;
-    //[SerializeField] private AudioSource _playerSource;
-
+    [SerializeField] private Image _triangle;
+    
     private ChangeDetector _changeDetector;
 
     private void Awake()
@@ -58,6 +48,7 @@ public class PlayerBehaviour : NetworkBehaviour
         {
             CameraManager camera = FindObjectOfType<CameraManager>();
             camera.CameraTarget = CameraTransform;
+            _triangle.enabled = true;
 
             if (Nickname == string.Empty)
             {
@@ -67,7 +58,6 @@ public class PlayerBehaviour : NetworkBehaviour
         }
         GetComponentInChildren<NicknameText>().SetupNickname(Nickname.ToString());
         GetComponentInChildren<SpriteRenderer>().color = PlayerColor;
-        //_particleManager.ClearParticles();
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
@@ -85,18 +75,10 @@ public class PlayerBehaviour : NetworkBehaviour
     {
         if (Runner.IsServer)
         {
-            //RPC_DeathEffects();
             _rb.Rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
-
-    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
-    //private void RPC_DeathEffects()
-    //{
-    //    _particleManager.Get(ParticleManager.ParticleID.Death).transform.position = transform.position;
-    //    PlayDeathSound();
-    //}
-
+    
     private void RpcSetGFXActive(bool value)
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(value);
@@ -146,12 +128,7 @@ public class PlayerBehaviour : NetworkBehaviour
             }
         }
     }
-
-    //private void PlayDeathSound()
-    //{
-    //    _sfxChannel.CallSoundEvent(_deathSound, Object.HasInputAuthority ? null : _playerSource);
-    //}
-
+    
     //private IEnumerator Respawn()
     //{
     //    _rb.Teleport(PlayerSpawner.PlayerSpawnPos);
@@ -176,7 +153,7 @@ public class PlayerBehaviour : NetworkBehaviour
         }
     }
 
-    public void RequestRespawn()
+    private void RequestRespawn()
     {
         Respawning = true;
         SetInputsAllowed(false);

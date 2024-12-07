@@ -426,6 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnPlayerLeftEvent: {fileID: 11400000, guid: b31a37b7031ed3d4b9749ff5de30a950, type: 2}
   OnRunnerShutDownEvent: {fileID: 11400000, guid: 9ac439ef5c775ba408c1f37826c4c86f, type: 2}
+  _length: 6
   LoadLevelManager: {fileID: 1464562569930905306}
   _exitCanvas: {fileID: 8950171824325675745}
 --- !u!114 &1464562569930905300
@@ -932,7 +933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2417941255134646110
 RectTransform:
   m_ObjectHideFlags: 0
